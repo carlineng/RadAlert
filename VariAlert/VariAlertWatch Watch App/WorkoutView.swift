@@ -8,8 +8,8 @@ import SwiftUI
 
 struct WorkoutView: View {
     @EnvironmentObject var appState: WatchAppState
-    @EnvironmentObject var workoutManager: WorkoutSessionManager
     @EnvironmentObject var bluetoothManager: BluetoothManager
+    @EnvironmentObject var workoutManager: WorkoutSessionManager
 
     @State private var isPressing = false
     @State private var currentTime = Date()

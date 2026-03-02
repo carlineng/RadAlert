@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import HealthKit
 
 class WatchAppState: ObservableObject {
     enum Mode {
