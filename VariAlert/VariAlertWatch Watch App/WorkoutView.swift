@@ -3,70 +3,91 @@
 //  WorkoutView.swift
 //  VariAlertWatch Watch App
 //
-//  Created by Carlin Eng on 2/3/25.
-//
 
 import SwiftUI
 
 struct WorkoutView: View {
     @EnvironmentObject var appState: WatchAppState
     @EnvironmentObject var workoutManager: WorkoutSessionManager
-    
-    // Use a state to track whether the user is currently long-pressing
+    @EnvironmentObject var bluetoothManager: BluetoothManager
+
     @State private var isPressing = false
     @State private var currentTime = Date()
-    
+
     var body: some View {
         VStack(spacing: 16) {
-            // Display the current time in HH:MM format
             Text(timeFormatter.string(from: currentTime))
                 .font(.title)
 
-            Text("Workout Active")
+            Text(radarStatusText)
                 .font(.subheadline)
+                .foregroundColor(radarStatusColor)
 
-            // Pause Ride Button
             Button(action: {}) {
                 Text("Pause Ride")
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(isPressing ? Color.red.opacity(0.7) : Color.red) // Changes shade when pressed
+                    .background(isPressing ? Color.red.opacity(0.7) : Color.red)
                     .cornerRadius(10)
             }
             .simultaneousGesture(
-                LongPressGesture(minimumDuration: 1.0) // 1 second press required
-                    .onChanged { _ in isPressing = true } // Start changing button shade
+                LongPressGesture(minimumDuration: 1.0)
+                    .onChanged { _ in isPressing = true }
                     .onEnded { _ in
                         isPressing = false
-                        stopWorkoutSession() // Trigger app state change
+                        stopWorkoutSession()
                     }
             )
         }
         .padding()
         .onAppear {
             startTimeUpdater()
+            bluetoothManager.startScanning()
+        }
+        .onDisappear {
+            bluetoothManager.disconnect()
+        }
+        .onChange(of: bluetoothManager.isConnected) { connected in
+            appState.isRadarConnected = connected
         }
     }
-    
-    // Time formatter for HH:MM format
+
+    // MARK: - Radar Status
+
+    private var radarStatusText: String {
+        if bluetoothManager.isConnected {
+            return "Radar Connected"
+        } else if bluetoothManager.isScanning {
+            return "Scanning..."
+        } else {
+            return "No Radar"
+        }
+    }
+
+    private var radarStatusColor: Color {
+        bluetoothManager.isConnected ? .green : .secondary
+    }
+
+    // MARK: - Helpers
+
     private var timeFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.timeStyle = .short
         formatter.dateFormat = "HH:mm"
         return formatter
     }
-    
-    // Update time every minute
+
     private func startTimeUpdater() {
         currentTime = Date()
         Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
             currentTime = Date()
         }
     }
-    
+
     private func stopWorkoutSession() {
+        bluetoothManager.disconnect()
         workoutManager.stopWorkout()
+        appState.isRadarConnected = false
         appState.mode = .idle
     }
 }

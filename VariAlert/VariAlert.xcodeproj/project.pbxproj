@@ -32,12 +32,12 @@
 		36FE2A1D2D50336E00A5E88E /* AppStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE2A1C2D50336E00A5E88E /* AppStateViewModel.swift */; };
 		36FE2A1F2D5033BF00A5E88E /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE2A1E2D5033BF00A5E88E /* BluetoothManager.swift */; };
 		36FE2A212D50385200A5E88E /* Threat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE2A202D50385200A5E88E /* Threat.swift */; };
-		36FE2A232D505DEB00A5E88E /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE2A222D505DEB00A5E88E /* WatchConnectivityManager.swift */; };
 		36FE2A292D51105B00A5E88E /* project_overview.txt in Resources */ = {isa = PBXBuildFile; fileRef = 36FE2A282D51105B00A5E88E /* project_overview.txt */; };
 		36FE2A2B2D51AF9200A5E88E /* WatchAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE2A2A2D51AF9200A5E88E /* WatchAppState.swift */; };
 		36FE2A2D2D51AFA400A5E88E /* WorkoutSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE2A2C2D51AFA400A5E88E /* WorkoutSessionManager.swift */; };
 		36FE2A2F2D51B0BE00A5E88E /* IdleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE2A2E2D51B0BE00A5E88E /* IdleView.swift */; };
 		36FE2A312D51B0E300A5E88E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE2A302D51B0E300A5E88E /* WorkoutView.swift */; };
+		AA11223344556677889900AA /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB11223344556677889900BB /* BluetoothManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,13 +101,13 @@
 		36FE2A1C2D50336E00A5E88E /* AppStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateViewModel.swift; sourceTree = "<group>"; };
 		36FE2A1E2D5033BF00A5E88E /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		36FE2A202D50385200A5E88E /* Threat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Threat.swift; sourceTree = "<group>"; };
-		36FE2A222D505DEB00A5E88E /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
 		36FE2A282D51105B00A5E88E /* project_overview.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = project_overview.txt; path = ../project_overview.txt; sourceTree = "<group>"; };
 		36FE2A2A2D51AF9200A5E88E /* WatchAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAppState.swift; sourceTree = "<group>"; };
 		36FE2A2C2D51AFA400A5E88E /* WorkoutSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionManager.swift; sourceTree = "<group>"; };
 		36FE2A2E2D51B0BE00A5E88E /* IdleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleView.swift; sourceTree = "<group>"; };
 		36FE2A302D51B0E300A5E88E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		36FE2A322D51B36100A5E88E /* VariAlertWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "VariAlertWatch Watch App.entitlements"; sourceTree = "<group>"; };
+		BB11223344556677889900BB /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,7 +199,7 @@
 				36FE2A2A2D51AF9200A5E88E /* WatchAppState.swift */,
 				36FE2A2C2D51AFA400A5E88E /* WorkoutSessionManager.swift */,
 				36FE29ED2D502BA400A5E88E /* VariAlertWatchApp.swift */,
-				36FE2A222D505DEB00A5E88E /* WatchConnectivityManager.swift */,
+				BB11223344556677889900BB /* BluetoothManager.swift */,
 				367342A82D5B179B00E4CF04 /* HapticTestView.swift */,
 				36FE29F12D502BA600A5E88E /* Assets.xcassets */,
 				36FE29F32D502BA600A5E88E /* Preview Content */,
@@ -441,7 +441,7 @@
 				36FE2A2B2D51AF9200A5E88E /* WatchAppState.swift in Sources */,
 				36FE2A312D51B0E300A5E88E /* WorkoutView.swift in Sources */,
 				367342A92D5B179B00E4CF04 /* HapticTestView.swift in Sources */,
-				36FE2A232D505DEB00A5E88E /* WatchConnectivityManager.swift in Sources */,
+				AA11223344556677889900AA /* BluetoothManager.swift in Sources */,
 				36FE2A2F2D51B0BE00A5E88E /* IdleView.swift in Sources */,
 				36FE2A2D2D51AFA400A5E88E /* WorkoutSessionManager.swift in Sources */,
 				36FE29EE2D502BA400A5E88E /* VariAlertWatchApp.swift in Sources */,
@@ -702,10 +702,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VariAlertWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 82Z3449U28;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = VariAlertWatch;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "VariAlert needs Bluetooth to connect to your Garmin Varia radar.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.carlineng.VariAlert;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -733,10 +734,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VariAlertWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 82Z3449U28;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = VariAlertWatch;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "VariAlert needs Bluetooth to connect to your Garmin Varia radar.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.carlineng.VariAlert;
 				LD_RUNPATH_SEARCH_PATHS = (

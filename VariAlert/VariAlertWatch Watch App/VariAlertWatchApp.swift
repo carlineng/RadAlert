@@ -8,31 +8,27 @@
 
 import SwiftUI
 import WatchKit
-import UserNotifications
 
 @main
 struct VariAlertWatch_Watch_AppApp: App {
-    // Declare your state objects without initial values:
     @StateObject private var watchAppState: WatchAppState
-    @StateObject private var connectivityManager: WatchConnectivityManager
+    @StateObject private var bluetoothManager: BluetoothManager
     @StateObject private var workoutManager: WorkoutSessionManager
 
     init() {
-        // 1. Manually create all the instances we need:
         let aState = WatchAppState()
-        let cManager = WatchConnectivityManager(appState: aState)
+        let bManager = BluetoothManager()
         let wManager = WorkoutSessionManager()
 
-        // 2. Wrap each instance in StateObject:
         _watchAppState = StateObject(wrappedValue: aState)
-        _connectivityManager = StateObject(wrappedValue: cManager)
+        _bluetoothManager = StateObject(wrappedValue: bManager)
         _workoutManager = StateObject(wrappedValue: wManager)
     }
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(connectivityManager)
+                .environmentObject(bluetoothManager)
                 .environmentObject(workoutManager)
                 .environmentObject(watchAppState)
         }

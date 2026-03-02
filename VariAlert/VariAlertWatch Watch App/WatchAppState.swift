@@ -16,4 +16,5 @@ class WatchAppState: ObservableObject {
     }
 
     @Published var mode: Mode = .idle
+    @Published var isRadarConnected: Bool = false
 }
