@@ -18,18 +18,37 @@ class BluetoothManager: NSObject, ObservableObject {
     @Published var isConnected: Bool = false
 
     // MARK: - Private Properties
+    private var lastThreatIDs: Set<UInt8> = []
+
+#if targetEnvironment(simulator)
+    private var simulationTimer: Timer?
+#else
     private var centralManager: CBCentralManager!
     private var connectedPeripheral: CBPeripheral?
-    private var lastThreatIDs: Set<UInt8> = []
+#endif
 
     override init() {
         super.init()
+#if !targetEnvironment(simulator)
         centralManager = CBCentralManager(delegate: self, queue: nil)
+#endif
     }
 
     // MARK: - Public Methods
 
     func startScanning() {
+#if targetEnvironment(simulator)
+        isScanning = true
+        lastThreatIDs = []
+        print("[Simulator] Simulating radar scan...")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            guard let self, self.isScanning else { return }
+            self.isScanning = false
+            self.isConnected = true
+            print("[Simulator] Radar connected.")
+            self.startSimulatingThreats()
+        }
+#else
         guard centralManager.state == .poweredOn else {
             print("Bluetooth not powered on.")
             return
@@ -38,21 +57,42 @@ class BluetoothManager: NSObject, ObservableObject {
         lastThreatIDs = []
         centralManager.scanForPeripherals(withServices: [BluetoothManager.garminServiceUUID], options: nil)
         print("Scanning for Garmin Varia radar...")
+#endif
     }
 
     func stopScanning() {
         isScanning = false
+#if !targetEnvironment(simulator)
         centralManager.stopScan()
+#endif
         print("Stopped scanning.")
     }
 
     func disconnect() {
+#if targetEnvironment(simulator)
+        simulationTimer?.invalidate()
+        simulationTimer = nil
+        isConnected = false
+        print("[Simulator] Radar disconnected.")
+#else
         if let peripheral = connectedPeripheral {
             centralManager.cancelPeripheralConnection(peripheral)
             connectedPeripheral = nil
             isConnected = false
         }
+#endif
     }
+
+#if targetEnvironment(simulator)
+    private func startSimulatingThreats() {
+        var threatID: UInt8 = 1
+        simulationTimer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: true) { [weak self] _ in
+            guard let self, self.isConnected else { return }
+            self.handleThreats([Threat(id: threatID, distance: 50, speed: 30)])
+            threatID = threatID == 255 ? 1 : threatID + 1
+        }
+    }
+#endif
 
     // MARK: - Private: Haptics
 
@@ -67,6 +107,7 @@ class BluetoothManager: NSObject, ObservableObject {
 
 // MARK: - CBCentralManagerDelegate
 
+#if !targetEnvironment(simulator)
 extension BluetoothManager: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
@@ -156,8 +197,13 @@ extension BluetoothManager: CBPeripheralDelegate {
             handleThreats(threats)
         }
     }
+}
+#endif
 
-    private func handleThreats(_ threats: [Threat]) {
+// MARK: - Threat Handling
+
+extension BluetoothManager {
+    func handleThreats(_ threats: [Threat]) {
         let currentIDs = Set(threats.map { $0.id })
         let newIDs = currentIDs.subtracting(lastThreatIDs)
 

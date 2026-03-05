@@ -13,6 +13,7 @@ struct WorkoutView: View {
 
     @State private var isPressing = false
     @State private var currentTime = Date()
+    @State private var showingThreatAlert = false
 
     var body: some View {
         VStack(spacing: 16) {
@@ -41,9 +42,22 @@ struct WorkoutView: View {
             )
         }
         .padding()
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.red, lineWidth: 6)
+                .opacity(showingThreatAlert ? 1 : 0)
+        )
         .onAppear {
             startTimeUpdater()
             bluetoothManager.startScanning()
+            bluetoothManager.onNewThreatDetected = {
+                showingThreatAlert = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    withAnimation(.easeOut(duration: 0.5)) {
+                        showingThreatAlert = false
+                    }
+                }
+            }
         }
         .onDisappear {
             bluetoothManager.disconnect()
