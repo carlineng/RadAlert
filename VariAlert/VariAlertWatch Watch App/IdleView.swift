@@ -11,16 +11,14 @@ import SwiftUI
 struct IdleView: View {
     @EnvironmentObject var appState: WatchAppState
     @EnvironmentObject var workoutManager: WorkoutSessionManager
-    
+
     var body: some View {
         VStack(spacing: 16) {
             Text("Idle State")
                 .font(.title2)
 
-            Button("Start Workout") {
-                // Start a workout session
+            Button("Start Ride") {
                 workoutManager.startWorkout()
-                // Switch mode
                 appState.mode = .workout
             }
             .font(.headline)
