@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 //
 //  HapticTestView.swift
-//  VariAlertWatch Watch App
+//  RadAlert Watch App
 //
 //  Created by Carlin Eng on 2/10/25.
 //

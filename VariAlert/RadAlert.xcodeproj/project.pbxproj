@@ -10,7 +10,7 @@
 		CE000004000000000000004F /* StubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE000001000000000000001F /* StubApp.swift */; };
 		CE000005000000000000005F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE000002000000000000002F /* ContentView.swift */; };
 		367342A92D5B179B00E4CF04 /* HapticTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367342A82D5B179B00E4CF04 /* HapticTestView.swift */; };
-		36FE29EE2D502BA400A5E88E /* VariAlertWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE29ED2D502BA400A5E88E /* VariAlertWatchApp.swift */; };
+		36FE29EE2D502BA400A5E88E /* RadAlertApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE29ED2D502BA400A5E88E /* RadAlertApp.swift */; };
 		36FE29F22D502BA600A5E88E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36FE29F12D502BA600A5E88E /* Assets.xcassets */; };
 		36FE29F52D502BA600A5E88E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36FE29F42D502BA600A5E88E /* Preview Assets.xcassets */; };
 		36FE2A292D51105B00A5E88E /* project_overview.txt in Resources */ = {isa = PBXBuildFile; fileRef = 36FE2A282D51105B00A5E88E /* project_overview.txt */; };
@@ -26,8 +26,8 @@
 		CE000002000000000000002F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CE000003000000000000003F /* VariAlertStub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VariAlertStub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		367342A82D5B179B00E4CF04 /* HapticTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticTestView.swift; sourceTree = "<group>"; };
-		36FE29EB2D502BA400A5E88E /* VariAlertWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VariAlertWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		36FE29ED2D502BA400A5E88E /* VariAlertWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariAlertWatchApp.swift; sourceTree = "<group>"; };
+		36FE29EB2D502BA400A5E88E /* RadAlert Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RadAlert Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		36FE29ED2D502BA400A5E88E /* RadAlertApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadAlertApp.swift; sourceTree = "<group>"; };
 		36FE29F12D502BA600A5E88E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		36FE29F42D502BA600A5E88E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		36FE2A282D51105B00A5E88E /* project_overview.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = project_overview.txt; path = ../project_overview.txt; sourceTree = "<group>"; };
@@ -35,7 +35,7 @@
 		36FE2A2C2D51AFA400A5E88E /* WorkoutSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionManager.swift; sourceTree = "<group>"; };
 		36FE2A2E2D51B0BE00A5E88E /* IdleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleView.swift; sourceTree = "<group>"; };
 		36FE2A302D51B0E300A5E88E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
-		36FE2A322D51B36100A5E88E /* VariAlertWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "VariAlertWatch Watch App.entitlements"; sourceTree = "<group>"; };
+		36FE2A322D51B36100A5E88E /* RadAlert Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RadAlert Watch App.entitlements"; sourceTree = "<group>"; };
 		BB11223344556677889900BB /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,7 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				36FE2A282D51105B00A5E88E /* project_overview.txt */,
-				36FE29EC2D502BA400A5E88E /* VariAlertWatch Watch App */,
+				36FE29EC2D502BA400A5E88E /* RadAlert Watch App */,
 				CE00000D0000000000000DDF /* VariAlertStub */,
 				36FE29D72D502B1800A5E88E /* Products */,
 			);
@@ -79,19 +79,19 @@
 		36FE29D72D502B1800A5E88E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				36FE29EB2D502BA400A5E88E /* VariAlertWatch Watch App.app */,
+				36FE29EB2D502BA400A5E88E /* RadAlert Watch App.app */,
 				CE000003000000000000003F /* VariAlertStub.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		36FE29EC2D502BA400A5E88E /* VariAlertWatch Watch App */ = {
+		36FE29EC2D502BA400A5E88E /* RadAlert Watch App */ = {
 			isa = PBXGroup;
 			children = (
-				36FE2A322D51B36100A5E88E /* VariAlertWatch Watch App.entitlements */,
+				36FE2A322D51B36100A5E88E /* RadAlert Watch App.entitlements */,
 				36FE2A2A2D51AF9200A5E88E /* WatchAppState.swift */,
 				36FE2A2C2D51AFA400A5E88E /* WorkoutSessionManager.swift */,
-				36FE29ED2D502BA400A5E88E /* VariAlertWatchApp.swift */,
+				36FE29ED2D502BA400A5E88E /* RadAlertApp.swift */,
 				BB11223344556677889900BB /* BluetoothManager.swift */,
 				367342A82D5B179B00E4CF04 /* HapticTestView.swift */,
 				36FE29F12D502BA600A5E88E /* Assets.xcassets */,
@@ -99,7 +99,7 @@
 				36FE2A2E2D51B0BE00A5E88E /* IdleView.swift */,
 				36FE2A302D51B0E300A5E88E /* WorkoutView.swift */,
 			);
-			path = "VariAlertWatch Watch App";
+			path = "RadAlert Watch App";
 			sourceTree = "<group>";
 		};
 		36FE29F32D502BA600A5E88E /* Preview Content */ = {
@@ -113,9 +113,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		36FE29EA2D502BA400A5E88E /* VariAlertWatch Watch App */ = {
+		36FE29EA2D502BA400A5E88E /* RadAlert Watch App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 36FE29F92D502BA600A5E88E /* Build configuration list for PBXNativeTarget "VariAlertWatch Watch App" */;
+			buildConfigurationList = 36FE29F92D502BA600A5E88E /* Build configuration list for PBXNativeTarget "RadAlert Watch App" */;
 			buildPhases = (
 				36FE29E72D502BA400A5E88E /* Sources */,
 				36FE29E82D502BA400A5E88E /* Frameworks */,
@@ -125,9 +125,9 @@
 			);
 			dependencies = (
 			);
-			name = "VariAlertWatch Watch App";
-			productName = "VariAlertWatch Watch App";
-			productReference = 36FE29EB2D502BA400A5E88E /* VariAlertWatch Watch App.app */;
+			name = "RadAlert Watch App";
+			productName = "RadAlert Watch App";
+			productReference = 36FE29EB2D502BA400A5E88E /* RadAlert Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CE000009000000000000009F /* VariAlertStub */ = {
@@ -165,7 +165,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 36FE29D12D502B1800A5E88E /* Build configuration list for PBXProject "VariAlert" */;
+			buildConfigurationList = 36FE29D12D502B1800A5E88E /* Build configuration list for PBXProject "RadAlert" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -178,7 +178,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				36FE29EA2D502BA400A5E88E /* VariAlertWatch Watch App */,
+				36FE29EA2D502BA400A5E88E /* RadAlert Watch App */,
 				CE000009000000000000009F /* VariAlertStub */,
 			);
 		};
@@ -215,7 +215,7 @@
 				AA11223344556677889900AA /* BluetoothManager.swift in Sources */,
 				36FE2A2F2D51B0BE00A5E88E /* IdleView.swift in Sources */,
 				36FE2A2D2D51AFA400A5E88E /* WorkoutSessionManager.swift in Sources */,
-				36FE29EE2D502BA400A5E88E /* VariAlertWatchApp.swift in Sources */,
+				36FE29EE2D502BA400A5E88E /* RadAlertApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,25 +358,25 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
-				CODE_SIGN_ENTITLEMENTS = "VariAlertWatch Watch App/VariAlertWatch Watch App.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "RadAlert Watch App/RadAlert Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"VariAlertWatch Watch App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"RadAlert Watch App/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = VariAlertWatch;
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "VariAlert needs Bluetooth to connect to your Garmin Varia radar.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "VariAlert needs HealthKit to track your cycling workout.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "VariAlert needs HealthKit to track your cycling workout.";
+				INFOPLIST_KEY_CFBundleDisplayName = RadAlert;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "RadAlert needs Bluetooth to connect to your Garmin Varia radar.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "RadAlert needs HealthKit to track your cycling workout.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "RadAlert needs HealthKit to track your cycling workout.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.carlineng.VariAlert;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.carlineng.RadAlert;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.VariAlert.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.RadAlert.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -392,25 +392,25 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
-				CODE_SIGN_ENTITLEMENTS = "VariAlertWatch Watch App/VariAlertWatch Watch App.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "RadAlert Watch App/RadAlert Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"VariAlertWatch Watch App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"RadAlert Watch App/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = VariAlertWatch;
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "VariAlert needs Bluetooth to connect to your Garmin Varia radar.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "VariAlert needs HealthKit to track your cycling workout.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "VariAlert needs HealthKit to track your cycling workout.";
+				INFOPLIST_KEY_CFBundleDisplayName = RadAlert;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "RadAlert needs Bluetooth to connect to your Garmin Varia radar.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "RadAlert needs HealthKit to track your cycling workout.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "RadAlert needs HealthKit to track your cycling workout.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.carlineng.VariAlert;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.carlineng.RadAlert;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.VariAlert.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.RadAlert.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -427,7 +427,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 82Z3449U28;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = VariAlert;
+				INFOPLIST_KEY_CFBundleDisplayName = RadAlert;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -436,7 +436,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.VariAlert;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.RadAlert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -452,7 +452,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 82Z3449U28;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = VariAlert;
+				INFOPLIST_KEY_CFBundleDisplayName = RadAlert;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -461,7 +461,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.VariAlert;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.RadAlert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -473,7 +473,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		36FE29D12D502B1800A5E88E /* Build configuration list for PBXProject "VariAlert" */ = {
+		36FE29D12D502B1800A5E88E /* Build configuration list for PBXProject "RadAlert" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36FE29E22D502B1900A5E88E /* Debug */,
@@ -482,7 +482,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		36FE29F92D502BA600A5E88E /* Build configuration list for PBXNativeTarget "VariAlertWatch Watch App" */ = {
+		36FE29F92D502BA600A5E88E /* Build configuration list for PBXNativeTarget "RadAlert Watch App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36FE29FA2D502BA600A5E88E /* Debug */,

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 //
 //  BluetoothManager.swift
-//  VariAlertWatch Watch App
+//  RadAlert Watch App
 //
 
 import Foundation

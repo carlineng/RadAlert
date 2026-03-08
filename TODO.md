@@ -1,4 +1,4 @@
-# VariAlert TODO
+# RadAlert TODO
 
 ## Completed (Standalone watchOS Refactor)
 - [x] Create watchOS `BluetoothManager.swift` (BLE scanning, auto-connect, threat parsing + dedup, haptic alerts)
@@ -29,7 +29,8 @@
 ### Prerequisites
 - [ ] **Paid Apple Developer Program membership** ($99/yr) — required to submit to App Store; personal/free team cannot submit
 - [ ] **Remove VariAlertStub iOS target** — the `VariAlertStub/` iOS app is a development workaround to prevent watchOS from orphan-cleaning the watch app (see `VariAlertStub/StubApp.swift` for step-by-step removal instructions); it must be removed before App Store submission as Apple will reject a stub iOS app under guideline 4.2 (Minimum Functionality); removal requires a paid developer account so App Store distribution manages watch app persistence instead
-- [ ] **Rename the app and project** — "VariAlert" derives directly from Garmin's "Varia" trademark and could trigger App Store rejection (guideline 4.1) or a Garmin C&D; choose a name that describes the functionality without referencing Garmin (e.g. RadarAlert, TailAlert, RearGuard, CycleRadar); "compatible with Garmin Varia" can still appear in the App Store description
+- [x] **Rename the app and project** — renamed to **RadAlert** (subtitle: "Radar Alerts for Cyclists"); App Store keywords to include: "garmin varia, cycling radar, bike radar, haptic alert"
+- [x] **Rename GitHub repo** — renamed to `RadAlert` on GitHub; local remote URL updated
 
 ### Legal & Compliance
 - [ ] **In-app disclaimer screen** — show on first launch; must make clear the app is a supplement to situational awareness, not a certified safety device; require user acknowledgement before proceeding
@@ -47,7 +48,7 @@
 
 ### Polish
 - [ ] **App icon** — required for App Store submission
-- [ ] **App name** — decide on final name; "VariAlertWatch" is the current display name
+- [x] **App name** — "RadAlert" (display name set in build settings)
 - [ ] **Version and build number** — set appropriately before submission
 - [ ] **Screenshot(s)** — App Store requires at least one Apple Watch screenshot
 
@@ -65,4 +66,4 @@
 - Auto-connect to first discovered Garmin Varia (no manual device selection)
 - Haptic pattern: 4× `.retry` pulses, 0.3s spacing
 - `VariAlertStub` iOS target exists only to satisfy the companion app check and prevent watch app orphan-cleanup during development; see `VariAlertStub/StubApp.swift` for removal instructions
-- `WKCompanionAppBundleIdentifier = com.carlineng.VariAlert` is required by WatchKit installer (bundle ID prefix constraint) and must match the stub's bundle ID; remove both when removing the stub
+- `WKCompanionAppBundleIdentifier = com.carlineng.RadAlert` is required by WatchKit installer (bundle ID prefix constraint) and must match the stub's bundle ID; remove both when removing the stub
