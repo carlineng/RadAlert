@@ -13,12 +13,22 @@
 - [x] Configure watch as standalone (`WKRunsIndependentlyOfCompanionApp = YES`)
 - [x] Update CLAUDE.md and README
 
+## Completed (Development Experience)
+- [x] **Simulator support** — `BluetoothManager` uses `#if targetEnvironment(simulator)` to simulate radar connection (2s delay), periodic fake threats (every 4s), and an unexpected disconnect (at 20s) without any BLE hardware
+- [x] **Visual threat indicator** — red border flashes on `WorkoutView` when a threat is detected, making haptic events visible in the simulator
+- [x] **Stub iOS companion app** (`VariAlertStub`) — prevents watchOS from orphan-cleaning the watch app during local development; includes step-by-step removal instructions
+
+## Completed (Reliability & Safety UX)
+- [x] **Radar disconnect notification** — unexpected mid-ride disconnect plays `.failure` haptic, flashes orange border, shows "Radar Lost" status, then auto-retries scanning after 2s; explicit "Pause Ride" stop does not trigger the alert
+- [x] **Scan retry** — 15s scan timeout stops a stalled scan; "Scan Again" button appears whenever not connected and not scanning
+
 ---
 
 ## App Store Readiness
 
 ### Prerequisites
 - [ ] **Paid Apple Developer Program membership** ($99/yr) — required to submit to App Store; personal/free team cannot submit
+- [ ] **Remove VariAlertStub iOS target** — the `VariAlertStub/` iOS app is a development workaround to prevent watchOS from orphan-cleaning the watch app (see `VariAlertStub/StubApp.swift` for step-by-step removal instructions); it must be removed before App Store submission as Apple will reject a stub iOS app under guideline 4.2 (Minimum Functionality); removal requires a paid developer account so App Store distribution manages watch app persistence instead
 - [ ] **Rename the app and project** — "VariAlert" derives directly from Garmin's "Varia" trademark and could trigger App Store rejection (guideline 4.1) or a Garmin C&D; choose a name that describes the functionality without referencing Garmin (e.g. RadarAlert, TailAlert, RearGuard, CycleRadar); "compatible with Garmin Varia" can still appear in the App Store description
 
 ### Legal & Compliance
@@ -33,8 +43,6 @@
 - [ ] **Rename "Idle State" label** — replace debug-looking UI text with something user-facing (e.g. "Ready" or just the app name)
 
 ### Reliability & Safety UX
-- [ ] **Radar disconnect notification** — if the radar drops mid-ride, alert the user immediately (haptic + UI) rather than silently showing "No Radar"
-- [ ] **Scan retry logic** — if initial scan finds nothing, offer a "Scan Again" button rather than leaving the user on a static "No Radar" state
 - [ ] **Workout metrics** — surface at least basic stats (elapsed time, heart rate) in WorkoutView to justify HealthKit usage to Apple reviewers; purely using HealthKit for background execution without surfacing data is a review risk
 
 ### Polish
@@ -56,4 +64,5 @@
 - Haptic alerts only fire during active workout mode
 - Auto-connect to first discovered Garmin Varia (no manual device selection)
 - Haptic pattern: 4× `.retry` pulses, 0.3s spacing
-- `WKCompanionAppBundleIdentifier = com.carlineng.VariAlert` is required by WatchKit installer (bundle ID prefix constraint) even though the iOS app no longer exists
+- `VariAlertStub` iOS target exists only to satisfy the companion app check and prevent watch app orphan-cleanup during development; see `VariAlertStub/StubApp.swift` for removal instructions
+- `WKCompanionAppBundleIdentifier = com.carlineng.VariAlert` is required by WatchKit installer (bundle ID prefix constraint) and must match the stub's bundle ID; remove both when removing the stub
