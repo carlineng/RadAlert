@@ -29,7 +29,14 @@
 ### Prerequisites
 - [ ] **Paid Apple Developer Program membership** ($99/yr) — required to submit to App Store; personal/free team cannot submit
 - [ ] **Remove VariAlertStub iOS target** — the `VariAlertStub/` iOS app is a development workaround to prevent watchOS from orphan-cleaning the watch app (see `VariAlertStub/StubApp.swift` for step-by-step removal instructions); it must be removed before App Store submission as Apple will reject a stub iOS app under guideline 4.2 (Minimum Functionality); removal requires a paid developer account so App Store distribution manages watch app persistence instead
-- [ ] **Rename the app and project** — "VariAlert" derives directly from Garmin's "Varia" trademark and could trigger App Store rejection (guideline 4.1) or a Garmin C&D; choose a name that describes the functionality without referencing Garmin (e.g. RadarAlert, TailAlert, RearGuard, CycleRadar); "compatible with Garmin Varia" can still appear in the App Store description
+- [ ] **Rename the app and project** — new name: **RadAlert** (subtitle: "Radar Alerts for Cyclists"); "VariAlert" derives directly from Garmin's "Varia" trademark; "RadAlert" is clean — "Rad" = radar/wheel (German), no trademark conflicts of concern; App Store keywords to include: "garmin varia, cycling radar, bike radar, haptic alert"; full rename plan below:
+  - **User-facing:** display name `VariAlertWatch` → `RadAlert`; bundle IDs `com.carlineng.VariAlert.*` → `com.carlineng.RadAlert.*`; update `WKCompanionAppBundleIdentifier` to match new stub bundle ID
+  - **Project structure:** `VariAlert.xcodeproj/` → `RadAlert.xcodeproj/`; `VariAlertWatch Watch App/` directory → `RadAlert Watch App/`; `VariAlertWatch Watch App.entitlements` → `RadAlert Watch App.entitlements`; `VariAlertWatchApp.swift` → `RadAlertApp.swift`; all path references in `project.pbxproj` updated to match
+  - **Source code:** struct `VariAlertWatch_Watch_AppApp` → `RadAlertApp`; file header comments in all Swift files; stub `ContentView.swift` and `StubApp.swift` comment references
+  - **Docs:** `README.md`, `CLAUDE.md`, `TODO.md` — all VariAlert references → RadAlert
+  - **GitHub:** rename repo `VariAlert` → `RadAlert` on GitHub (Settings → rename); update git remote URL locally after
+  - **Skip:** outer `VariAlert/VariAlert/` directory nesting (cosmetic, not worth disruption); git history; `xcuserdata/`
+  - **Risk:** `project.pbxproj` directory rename means all file reference paths change — do with find/replace + `plutil -lint` validation after
 
 ### Legal & Compliance
 - [ ] **In-app disclaimer screen** — show on first launch; must make clear the app is a supplement to situational awareness, not a certified safety device; require user acknowledgement before proceeding
