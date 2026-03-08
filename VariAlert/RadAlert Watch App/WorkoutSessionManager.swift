@@ -18,49 +18,57 @@ class WorkoutSessionManager: NSObject, ObservableObject {
     @Published var workoutStartDate: Date?
     var onSessionExpired: (() -> Void)?
 
-    func startWorkout() {
-        let typesToShare: Set = [HKObjectType.workoutType()]
-        let typesToRead: Set = [
-            HKObjectType.quantityType(forIdentifier: .heartRate)!
-        ]
+    var isHealthKitAuthorized: Bool {
+        healthStore.authorizationStatus(for: HKObjectType.workoutType()) == .sharingAuthorized
+    }
 
+    func requestAuthorization(completion: @escaping (Bool) -> Void) {
+        let typesToShare: Set = [HKObjectType.workoutType()]
+        let typesToRead: Set = [HKObjectType.quantityType(forIdentifier: .heartRate)!]
         healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { success, error in
             if let error = error {
                 print("Error requesting HealthKit authorization: \(error.localizedDescription)")
-                return
             }
+            DispatchQueue.main.async { completion(success) }
+        }
+    }
 
+    func startWorkout() {
+        requestAuthorization { success in
             guard success else {
                 print("HealthKit authorization was not granted.")
                 return
             }
+            self.beginSession()
+        }
+    }
 
-            let configuration = HKWorkoutConfiguration()
-            configuration.activityType = .cycling
-            configuration.locationType = .outdoor
+    private func beginSession() {
+        let configuration = HKWorkoutConfiguration()
+        configuration.activityType = .cycling
+        configuration.locationType = .outdoor
 
-            do {
-                self.workoutSession = try HKWorkoutSession(healthStore: self.healthStore, configuration: configuration)
-                self.workoutBuilder = self.workoutSession?.associatedWorkoutBuilder()
+        do {
+            workoutSession = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
+            workoutBuilder = workoutSession?.associatedWorkoutBuilder()
 
-                self.workoutSession?.delegate = self
-                self.workoutBuilder?.delegate = self
+            workoutSession?.delegate = self
+            workoutBuilder?.delegate = self
 
-                let startDate = Date()
-                self.workoutSession?.startActivity(with: startDate)
-                self.workoutBuilder?.beginCollection(withStart: startDate) { _, error in
-                    if let error = error {
-                        print("Error beginning workout collection: \(error.localizedDescription)")
-                    }
+            let startDate = Date()
+            workoutSession?.startActivity(with: startDate)
+            workoutBuilder?.beginCollection(withStart: startDate) { _, error in
+                if let error = error {
+                    print("Error beginning workout collection: \(error.localizedDescription)")
                 }
-
-                DispatchQueue.main.async {
-                    self.workoutStartDate = startDate
-                }
-                print("Workout session started.")
-            } catch {
-                print("Failed to start workout session: \(error.localizedDescription)")
             }
+
+            DispatchQueue.main.async {
+                self.workoutStartDate = startDate
+            }
+            print("Workout session started.")
+        } catch {
+            print("Failed to start workout session: \(error.localizedDescription)")
         }
     }
 
