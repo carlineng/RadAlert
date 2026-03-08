@@ -49,7 +49,7 @@
 ### Prerequisites
 - [ ] **Paid Apple Developer Program membership** ($99/yr) — required to submit to App Store; personal/free team cannot submit
 - [ ] **Remove VariAlertStub iOS target** — must be removed before App Store submission (Apple guideline 4.2); removal requires paid account so App Store distribution manages watch app persistence instead; see `VariAlertStub/StubApp.swift` for instructions
-- [ ] **Enable GitHub Pages** — in repo Settings → Pages, set source to `docs/` on `main` to publish the privacy policy
+- [x] **Enable GitHub Pages** — live at https://carlineng.github.io/RadAlert/privacy.html
 
 ### Core UX / App Review Requirements
 - [ ] **Onboarding flow** — explain what the app does and what hardware is needed (Garmin Varia) before the user hits the main screen
