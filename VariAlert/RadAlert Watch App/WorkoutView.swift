@@ -12,14 +12,34 @@ struct WorkoutView: View {
     @EnvironmentObject var workoutManager: WorkoutSessionManager
 
     @State private var isPressing = false
-    @State private var currentTime = Date()
+    @State private var elapsedSeconds: Int = 0
+    @State private var elapsedTimer: Timer?
     @State private var showingThreatAlert = false
     @State private var showingDisconnectWarning = false
+    @State private var showingConfirmation = false
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text(timeFormatter.string(from: currentTime))
-                .font(.title)
+        VStack(spacing: 12) {
+            // Metrics row
+            HStack(spacing: 16) {
+                VStack(spacing: 2) {
+                    Text(elapsedFormatted)
+                        .font(.title2.monospacedDigit())
+                    Text("Elapsed")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .frame(maxWidth: .infinity)
+
+                VStack(spacing: 2) {
+                    Text("\(bluetoothManager.vehicleCount)")
+                        .font(.title2.monospacedDigit())
+                    Text("Vehicles")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .frame(maxWidth: .infinity)
+            }
 
             Text(radarStatusText)
                 .font(.subheadline)
@@ -32,22 +52,29 @@ struct WorkoutView: View {
                 .foregroundColor(.orange)
             }
 
-            Button(action: {}) {
-                Text("Pause Ride")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(isPressing ? Color.red.opacity(0.7) : Color.red)
-                    .cornerRadius(10)
+            VStack(spacing: 4) {
+                Button(action: {}) {
+                    Text("Stop")
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(isPressing ? Color.red.opacity(0.7) : Color.red)
+                        .cornerRadius(10)
+                }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 1.0)
+                        .onChanged { _ in isPressing = true }
+                        .onEnded { _ in
+                            isPressing = false
+                            bluetoothManager.alertsEnabled = false
+                            showingConfirmation = true
+                        }
+                )
+
+                Text("Long press to stop")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
             }
-            .simultaneousGesture(
-                LongPressGesture(minimumDuration: 1.0)
-                    .onChanged { _ in isPressing = true }
-                    .onEnded { _ in
-                        isPressing = false
-                        stopWorkoutSession()
-                    }
-            )
         }
         .padding()
         .overlay(
@@ -60,8 +87,30 @@ struct WorkoutView: View {
                 .stroke(Color.orange, lineWidth: 6)
                 .opacity(showingDisconnectWarning ? 1 : 0)
         )
+        .sheet(isPresented: $showingConfirmation) {
+            EndRideSheet(
+                onResume: {
+                    bluetoothManager.alertsEnabled = true
+                    showingConfirmation = false
+                },
+                onSave: {
+                    bluetoothManager.disconnect()
+                    workoutManager.endAndSave {
+                        appState.isRadarConnected = false
+                        appState.mode = .idle
+                    }
+                },
+                onDiscard: {
+                    bluetoothManager.disconnect()
+                    workoutManager.endAndDiscard {
+                        appState.isRadarConnected = false
+                        appState.mode = .idle
+                    }
+                }
+            )
+        }
         .onAppear {
-            startTimeUpdater()
+            startElapsedTimer()
             bluetoothManager.startScanning()
             bluetoothManager.onNewThreatDetected = {
                 showingThreatAlert = true
@@ -79,8 +128,15 @@ struct WorkoutView: View {
                     }
                 }
             }
+            workoutManager.onSessionExpired = {
+                elapsedTimer?.invalidate()
+                appState.isRadarConnected = false
+                appState.mode = .idle
+            }
         }
         .onDisappear {
+            elapsedTimer?.invalidate()
+            elapsedTimer = nil
             bluetoothManager.disconnect()
         }
         .onChange(of: bluetoothManager.isConnected) { connected in
@@ -103,25 +159,55 @@ struct WorkoutView: View {
         return .secondary
     }
 
-    // MARK: - Helpers
+    // MARK: - Elapsed Time
 
-    private var timeFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter
-    }
-
-    private func startTimeUpdater() {
-        currentTime = Date()
-        Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
-            currentTime = Date()
+    private var elapsedFormatted: String {
+        let h = elapsedSeconds / 3600
+        let m = (elapsedSeconds % 3600) / 60
+        let s = elapsedSeconds % 60
+        if h > 0 {
+            return String(format: "%d:%02d:%02d", h, m, s)
+        } else {
+            return String(format: "%02d:%02d", m, s)
         }
     }
 
-    private func stopWorkoutSession() {
-        bluetoothManager.disconnect()
-        workoutManager.stopWorkout()
-        appState.isRadarConnected = false
-        appState.mode = .idle
+    private func startElapsedTimer() {
+        elapsedSeconds = 0
+        elapsedTimer?.invalidate()
+        elapsedTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            elapsedSeconds += 1
+        }
+    }
+}
+
+// MARK: - End Ride Confirmation Sheet
+
+private struct EndRideSheet: View {
+    let onResume: () -> Void
+    let onSave: () -> Void
+    let onDiscard: () -> Void
+
+    var body: some View {
+        VStack(spacing: 12) {
+            Button(action: onResume) {
+                Text("Resume")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.green)
+
+            Button(action: onSave) {
+                Text("End and Save")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+
+            Button(role: .destructive, action: onDiscard) {
+                Text("End and Discard")
+                    .frame(maxWidth: .infinity)
+            }
+        }
+        .padding()
     }
 }

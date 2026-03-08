@@ -24,6 +24,27 @@
 
 ---
 
+## Workout UX Improvements
+
+### End-of-Ride Confirmation Flow
+- [x] **Long-press → confirmation screen** — replace direct "Pause Ride" action with a confirmation screen showing three options: **Resume**, **End and Save**, **End and Discard**
+  - Resume: return to active ride, haptic alerts resume
+  - End and Save: save `HKWorkout` (cycling, with start/end time and duration) via `HKWorkoutBuilder`, then return to idle
+  - End and Discard: call `discard()` on the workout builder, return to idle
+  - Visual hierarchy: Resume = primary/green, End and Save = secondary, End and Discard = destructive/red
+- [x] **Haptic alerts suppressed during confirmation screen** — `bluetoothManager.alertsEnabled = false` while sheet is shown; restored on Resume
+- [x] **Session expiry handling** — `WorkoutSessionManager.onSessionExpired` callback fires on unexpected session end; WorkoutView returns to idle
+
+### WorkoutView Metrics
+- [x] **Replace time-of-day with Elapsed Time** — 1-second timer drives MM:SS stopwatch (switches to H:MM:SS after 60 minutes)
+- [x] **Vehicle Count** — cumulative total tracked in `BluetoothManager.vehicleCount`; increments on new threats, resets on `startScanning()`
+- [x] **"Long press to stop" hint** — caption label below Stop button
+
+### HealthKit Integration
+- [x] **Wire up `HKWorkoutBuilder`** — `endAndSave()` calls `finishWorkout()`; `endAndDiscard()` calls `discardWorkout()`; both paths clear `workoutStartDate`
+
+---
+
 ## App Store Readiness
 
 ### Prerequisites
@@ -41,10 +62,10 @@
 - [ ] **Onboarding flow** — explain what the app does and what hardware is needed (Garmin Varia) before the user hits the main screen
 - [ ] **Bluetooth permission denial handling** — if user denies Bluetooth, show an actionable message explaining why it's needed and how to enable it in Settings (currently the app silently does nothing)
 - [ ] **HealthKit permission denial handling** — if user denies HealthKit, either gracefully degrade (no workout tracking) or explain why it's required
-- [ ] **Rename "Idle State" label** — replace debug-looking UI text with something user-facing (e.g. "Ready" or just the app name)
+- [x] **Rename "Idle State" label** — changed to "RadAlert"
 
 ### Reliability & Safety UX
-- [ ] **Workout metrics** — surface at least basic stats (elapsed time, heart rate) in WorkoutView to justify HealthKit usage to Apple reviewers; purely using HealthKit for background execution without surfacing data is a review risk
+- [x] **Workout metrics** — elapsed time + vehicle count displayed; workout saved to HealthKit on "End and Save"
 
 ### Polish
 - [ ] **App icon** — required for App Store submission

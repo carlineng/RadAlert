@@ -13,10 +13,12 @@ class BluetoothManager: NSObject, ObservableObject {
 
     var onNewThreatDetected: (() -> Void)?
     var onRadarDisconnected: (() -> Void)?
+    var alertsEnabled: Bool = true
 
     // MARK: - Published Properties
     @Published var isScanning: Bool = false
     @Published var isConnected: Bool = false
+    @Published var vehicleCount: Int = 0
 
     // MARK: - Private Properties
     private var lastThreatIDs: Set<UInt8> = []
@@ -42,6 +44,7 @@ class BluetoothManager: NSObject, ObservableObject {
 
     func startScanning() {
         lastThreatIDs = []
+        vehicleCount = 0
         isScanning = true
         scanTimeoutTimer?.invalidate()
         scanTimeoutTimer = Timer.scheduledTimer(withTimeInterval: scanTimeoutInterval, repeats: false) { [weak self] _ in
@@ -250,9 +253,12 @@ extension BluetoothManager {
         let newIDs = currentIDs.subtracting(lastThreatIDs)
 
         if !newIDs.isEmpty {
-            print("New threat(s) detected: \(newIDs). Playing haptic alert.")
-            playThreatHaptic()
-            onNewThreatDetected?()
+            vehicleCount += newIDs.count
+            if alertsEnabled {
+                print("New threat(s) detected: \(newIDs). Playing haptic alert.")
+                playThreatHaptic()
+                onNewThreatDetected?()
+            }
         }
 
         lastThreatIDs = currentIDs
