@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE000004000000000000004F /* StubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE000001000000000000001F /* StubApp.swift */; };
+		CE000005000000000000005F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE000002000000000000002F /* ContentView.swift */; };
 		367342A92D5B179B00E4CF04 /* HapticTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367342A82D5B179B00E4CF04 /* HapticTestView.swift */; };
 		36FE29EE2D502BA400A5E88E /* VariAlertWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FE29ED2D502BA400A5E88E /* VariAlertWatchApp.swift */; };
 		36FE29F22D502BA600A5E88E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36FE29F12D502BA600A5E88E /* Assets.xcassets */; };
@@ -20,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE000001000000000000001F /* StubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubApp.swift; sourceTree = "<group>"; };
+		CE000002000000000000002F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CE000003000000000000003F /* VariAlertStub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VariAlertStub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		367342A82D5B179B00E4CF04 /* HapticTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticTestView.swift; sourceTree = "<group>"; };
 		36FE29EB2D502BA400A5E88E /* VariAlertWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VariAlertWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36FE29ED2D502BA400A5E88E /* VariAlertWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariAlertWatchApp.swift; sourceTree = "<group>"; };
@@ -42,6 +47,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE000008000000000000008F /* Frameworks (VariAlertStub) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -50,14 +62,25 @@
 			children = (
 				36FE2A282D51105B00A5E88E /* project_overview.txt */,
 				36FE29EC2D502BA400A5E88E /* VariAlertWatch Watch App */,
+				CE00000D0000000000000DDF /* VariAlertStub */,
 				36FE29D72D502B1800A5E88E /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		CE00000D0000000000000DDF /* VariAlertStub */ = {
+			isa = PBXGroup;
+			children = (
+				CE000001000000000000001F /* StubApp.swift */,
+				CE000002000000000000002F /* ContentView.swift */,
+			);
+			path = VariAlertStub;
 			sourceTree = "<group>";
 		};
 		36FE29D72D502B1800A5E88E /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				36FE29EB2D502BA400A5E88E /* VariAlertWatch Watch App.app */,
+				CE000003000000000000003F /* VariAlertStub.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,6 +130,23 @@
 			productReference = 36FE29EB2D502BA400A5E88E /* VariAlertWatch Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CE000009000000000000009F /* VariAlertStub */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE00000C0000000000000CCF /* Build configuration list for PBXNativeTarget "VariAlertStub" */;
+			buildPhases = (
+				CE000006000000000000006F /* Sources */,
+				CE000008000000000000008F /* Frameworks */,
+				CE000007000000000000007F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VariAlertStub;
+			productName = VariAlertStub;
+			productReference = CE000003000000000000003F /* VariAlertStub.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -115,9 +155,12 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					36FE29EA2D502BA400A5E88E = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					CE000009000000000000009F = {
 						CreatedOnToolsVersion = 15.4;
 					};
 				};
@@ -136,6 +179,7 @@
 			projectRoot = "";
 			targets = (
 				36FE29EA2D502BA400A5E88E /* VariAlertWatch Watch App */,
+				CE000009000000000000009F /* VariAlertStub */,
 			);
 		};
 /* End PBXProject section */
@@ -148,6 +192,13 @@
 				36FE2A292D51105B00A5E88E /* project_overview.txt in Resources */,
 				36FE29F52D502BA600A5E88E /* Preview Assets.xcassets in Resources */,
 				36FE29F22D502BA600A5E88E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE000007000000000000007F /* Resources (VariAlertStub) */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +216,15 @@
 				36FE2A2F2D51B0BE00A5E88E /* IdleView.swift in Sources */,
 				36FE2A2D2D51AFA400A5E88E /* WorkoutSessionManager.swift in Sources */,
 				36FE29EE2D502BA400A5E88E /* VariAlertWatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE000006000000000000006F /* Sources (VariAlertStub) */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE000004000000000000004F /* StubApp.swift in Sources */,
+				CE000005000000000000005F /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +265,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 82Z3449U28;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -227,6 +289,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -266,7 +329,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 82Z3449U28;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -281,6 +346,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -296,7 +362,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VariAlertWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 82Z3449U28;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = VariAlertWatch;
@@ -305,7 +370,7 @@
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "VariAlert needs HealthKit to track your cycling workout.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.carlineng.VariAlert;
-			INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -331,7 +396,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VariAlertWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 82Z3449U28;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = VariAlertWatch;
@@ -340,7 +404,7 @@
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "VariAlert needs HealthKit to track your cycling workout.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.carlineng.VariAlert;
-			INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -353,6 +417,56 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 10.5;
+			};
+			name = Release;
+		};
+		CE00000A0000000000000AAF /* Debug (VariAlertStub) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 82Z3449U28;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = VariAlert;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.VariAlert;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		CE00000B0000000000000BBF /* Release (VariAlertStub) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 82Z3449U28;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = VariAlert;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.VariAlert;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -373,6 +487,15 @@
 			buildConfigurations = (
 				36FE29FA2D502BA600A5E88E /* Debug */,
 				36FE29FB2D502BA600A5E88E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE00000C0000000000000CCF /* Build configuration list for PBXNativeTarget "VariAlertStub" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE00000A0000000000000AAF /* Debug */,
+				CE00000B0000000000000BBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

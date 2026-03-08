@@ -19,6 +19,7 @@
 
 ### Prerequisites
 - [ ] **Paid Apple Developer Program membership** ($99/yr) — required to submit to App Store; personal/free team cannot submit
+- [ ] **Remove VariAlertStub iOS target** — the `VariAlertStub/` iOS app is a development workaround to prevent watchOS from orphan-cleaning the watch app (see `VariAlertStub/StubApp.swift` for step-by-step removal instructions); it must be removed before App Store submission as Apple will reject a stub iOS app under guideline 4.2 (Minimum Functionality); removal requires a paid developer account so App Store distribution manages watch app persistence instead
 - [ ] **Rename the app and project** — "VariAlert" derives directly from Garmin's "Varia" trademark and could trigger App Store rejection (guideline 4.1) or a Garmin C&D; choose a name that describes the functionality without referencing Garmin (e.g. RadarAlert, TailAlert, RearGuard, CycleRadar); "compatible with Garmin Varia" can still appear in the App Store description
 
 ### Legal & Compliance
@@ -56,4 +57,5 @@
 - Haptic alerts only fire during active workout mode
 - Auto-connect to first discovered Garmin Varia (no manual device selection)
 - Haptic pattern: 4× `.retry` pulses, 0.3s spacing
-- `WKCompanionAppBundleIdentifier = com.carlineng.VariAlert` is required by WatchKit installer (bundle ID prefix constraint) even though the iOS app no longer exists
+- `VariAlertStub` iOS target exists only to satisfy the companion app check and prevent watch app orphan-cleanup during development; see `VariAlertStub/StubApp.swift` for removal instructions
+- `WKCompanionAppBundleIdentifier = com.carlineng.VariAlert` is required by WatchKit installer (bundle ID prefix constraint) and must match the stub's bundle ID; remove both when removing the stub
