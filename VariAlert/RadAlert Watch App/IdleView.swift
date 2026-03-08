@@ -14,7 +14,7 @@ struct IdleView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("Idle State")
+            Text("RadAlert")
                 .font(.title2)
 
             Button("Start Ride") {
