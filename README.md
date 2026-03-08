@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-# VariAlert
+# RadAlert
 
 A standalone Apple Watch app that connects directly to a Garmin Varia radar and delivers haptic alerts when vehicles approach from behind — no iPhone app required.
 
@@ -20,8 +20,8 @@ A standalone Apple Watch app that connects directly to a Garmin Varia radar and 
 
 ## Getting Started
 
-1. Open `VariAlert/VariAlert.xcodeproj` in Xcode
-2. Select the `VariAlertWatch Watch App` target
+1. Open `VariAlert/RadAlert.xcodeproj` in Xcode
+2. Select the `RadAlert Watch App` target
 3. Under **Signing & Capabilities**, set your Development Team
 4. Connect your iPhone via USB and select your Apple Watch as the run destination
 5. Hit ⌘R to build and install

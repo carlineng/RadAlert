@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 //
 //  WorkoutView.swift
-//  VariAlertWatch Watch App
+//  RadAlert Watch App
 //
 
 import SwiftUI

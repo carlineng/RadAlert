@@ -4,16 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-VariAlert is a **standalone watchOS application** for Garmin Varia radar device integration. The app runs entirely on Apple Watch — no companion iPhone app is required at runtime.
+RadAlert is a **standalone watchOS application** for Garmin Varia radar device integration. The app runs entirely on Apple Watch — no companion iPhone app is required at runtime.
 
 - **watchOS App**: Connects directly to a Garmin Varia radar via Bluetooth, monitors for vehicle threats, and delivers haptic alerts during cycling workouts
-- There is no iOS app target in this project
+- There is no iOS app target in this project (a development-only stub `VariAlertStub` exists to prevent orphan-cleanup — see `VariAlertStub/StubApp.swift`)
 
 ## Build & Test Commands
 
 ### Building the Project
-- Open `VariAlert/VariAlert.xcodeproj` in Xcode
-- Single build target: `VariAlertWatch Watch App` (watchOS)
+- Open `VariAlert/RadAlert.xcodeproj` in Xcode
+- Single build target: `RadAlert Watch App` (watchOS)
 - Use standard Xcode build commands (⌘+B) or xcodebuild CLI
 
 ### Development Requirements
@@ -23,8 +23,8 @@ VariAlert is a **standalone watchOS application** for Garmin Varia radar device 
 - Apple Developer account for device testing (personal/free team works with limitations — see Notes)
 
 ### Setup Instructions
-1. Open `VariAlert/VariAlert.xcodeproj` in Xcode
-2. Select the `VariAlertWatch Watch App` target
+1. Open `VariAlert/RadAlert.xcodeproj` in Xcode
+2. Select the `RadAlert Watch App` target
 3. Go to "Signing & Capabilities" tab
 4. Set your Development Team (Apple ID/Developer Account)
 5. Connect iPhone via USB, select your Apple Watch as the run destination, and hit ⌘R
@@ -50,7 +50,7 @@ The app follows MVVM architecture with SwiftUI and Combine.
 | `BluetoothManager.swift` | BLE scanning, auto-connect, threat parsing, deduplication, haptic alerts |
 | `WorkoutSessionManager.swift` | HealthKit workout session (keeps app alive in background) |
 | `WatchAppState.swift` | App mode (`.idle` / `.workout`) and radar connection state |
-| `VariAlertWatchApp.swift` | App entry point, environment object wiring |
+| `RadAlertApp.swift` | App entry point, environment object wiring |
 | `WorkoutView.swift` | Active ride UI — shows connection status, radar state |
 | `IdleView.swift` | Pre-ride UI — "Start Ride" button |
 | `HapticTestView.swift` | Developer tool for testing haptic patterns |
@@ -74,7 +74,7 @@ The app follows MVVM architecture with SwiftUI and Combine.
 
 **Standalone Watch Configuration**
 - `WKRunsIndependentlyOfCompanionApp = YES` — watch app does not require companion iOS app
-- `WKCompanionAppBundleIdentifier = com.carlineng.VariAlert` — required by WatchKit installer (bundle ID prefix constraint); the iOS app does not need to exist
+- `WKCompanionAppBundleIdentifier = com.carlineng.RadAlert` — required by WatchKit installer (bundle ID prefix constraint); matches the dev-only stub's bundle ID
 
 ## Development Notes
 

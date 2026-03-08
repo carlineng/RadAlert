@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 //
-//  VariAlertWatchApp.swift
-//  VariAlertWatch Watch App
+//  RadAlertApp.swift
+//  RadAlert Watch App
 //
 //  Created by Carlin Eng on 2/2/25.
 //
@@ -10,7 +10,7 @@ import SwiftUI
 import WatchKit
 
 @main
-struct VariAlertWatch_Watch_AppApp: App {
+struct RadAlertApp: App {
     @StateObject private var watchAppState: WatchAppState
     @StateObject private var bluetoothManager: BluetoothManager
     @StateObject private var workoutManager: WorkoutSessionManager

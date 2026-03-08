@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 //
 //  IdleView.swift
-//  VariAlertWatch Watch App
+//  RadAlert Watch App
 //
 //  Created by Carlin Eng on 2/3/25.
 //

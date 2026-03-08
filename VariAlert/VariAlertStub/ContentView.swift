@@ -13,7 +13,7 @@ struct ContentView: View {
             Image(systemName: "applewatch")
                 .font(.system(size: 48))
                 .foregroundColor(.secondary)
-            Text("VariAlert runs on Apple Watch.")
+            Text("RadAlert runs on Apple Watch.")
                 .multilineTextAlignment(.center)
                 .foregroundColor(.secondary)
         }

@@ -23,6 +23,9 @@
 //      omit it.
 //   4. Distribute via App Store (paid Apple Developer account required). App
 //      Store-distributed watch apps are not subject to companion-app cleanup.
+//
+// NOTE: Bundle ID is com.carlineng.RadAlert to match the watch app's
+// WKCompanionAppBundleIdentifier.
 // =============================================================================
 
 import SwiftUI
