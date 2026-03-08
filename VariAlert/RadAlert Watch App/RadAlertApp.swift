@@ -8,6 +8,7 @@
 
 import SwiftUI
 import WatchKit
+import CoreBluetooth
 
 @main
 struct RadAlertApp: App {
@@ -16,13 +17,9 @@ struct RadAlertApp: App {
     @StateObject private var workoutManager: WorkoutSessionManager
 
     init() {
-        let aState = WatchAppState()
-        let bManager = BluetoothManager()
-        let wManager = WorkoutSessionManager()
-
-        _watchAppState = StateObject(wrappedValue: aState)
-        _bluetoothManager = StateObject(wrappedValue: bManager)
-        _workoutManager = StateObject(wrappedValue: wManager)
+        _watchAppState = StateObject(wrappedValue: WatchAppState())
+        _bluetoothManager = StateObject(wrappedValue: BluetoothManager())
+        _workoutManager = StateObject(wrappedValue: WorkoutSessionManager())
     }
 
     var body: some Scene {
@@ -37,13 +34,21 @@ struct RadAlertApp: App {
 
 struct ContentView: View {
     @EnvironmentObject var appState: WatchAppState
-    @AppStorage("hasAcknowledgedDisclaimer") private var hasAcknowledgedDisclaimer = false
+    @EnvironmentObject var bluetoothManager: BluetoothManager
+    @EnvironmentObject var workoutManager: WorkoutSessionManager
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
 
     var body: some View {
         NavigationView {
             VStack {
-                if !hasAcknowledgedDisclaimer {
-                    DisclaimerView()
+                if !hasCompletedOnboarding {
+                    OnboardingView()
+                } else if bluetoothManager.bluetoothState == .unknown {
+                    ProgressView()
+                } else if !bluetoothManager.isAuthorized {
+                    BluetoothDeniedView()
+                } else if !workoutManager.isHealthKitAuthorized {
+                    HealthKitDeniedView()
                 } else {
                     switch appState.mode {
                     case .idle:
@@ -57,6 +62,46 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
+// MARK: - Denial Views
+
+private struct BluetoothDeniedView: View {
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 10) {
+                Image(systemName: "bluetooth.slash")
+                    .font(.system(size: 32))
+                    .foregroundColor(.orange)
+
+                Text("Bluetooth Required")
+                    .font(.headline)
+
+                Text("RadAlert needs Bluetooth to connect to your Garmin Varia.\n\nOn your iPhone: Settings → Privacy & Security → Bluetooth → enable RadAlert.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            .padding()
+        }
+    }
+}
+
+private struct HealthKitDeniedView: View {
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 10) {
+                Image(systemName: "heart.slash")
+                    .font(.system(size: 32))
+                    .foregroundColor(.red)
+
+                Text("Health Access Required")
+                    .font(.headline)
+
+                Text("RadAlert needs Health access to track your ride and run in the background.\n\nOn your iPhone: Settings → Health → Data Access & Devices → RadAlert.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            .padding()
+        }
+    }
 }

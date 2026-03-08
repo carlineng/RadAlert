@@ -19,6 +19,11 @@ class BluetoothManager: NSObject, ObservableObject {
     @Published var isScanning: Bool = false
     @Published var isConnected: Bool = false
     @Published var vehicleCount: Int = 0
+    @Published var bluetoothState: CBManagerState = .unknown
+
+    var isAuthorized: Bool {
+        bluetoothState != .unauthorized && bluetoothState != .unsupported
+    }
 
     // MARK: - Private Properties
     private var lastThreatIDs: Set<UInt8> = []
@@ -28,14 +33,19 @@ class BluetoothManager: NSObject, ObservableObject {
 #if targetEnvironment(simulator)
     private var simulationTimer: Timer?
 #else
-    private var centralManager: CBCentralManager!
+    private var centralManager: CBCentralManager?
     private var connectedPeripheral: CBPeripheral?
     private var intentionalDisconnect = false
 #endif
 
     override init() {
         super.init()
-#if !targetEnvironment(simulator)
+    }
+
+    func initialize() {
+#if targetEnvironment(simulator)
+        bluetoothState = .poweredOn
+#else
         centralManager = CBCentralManager(delegate: self, queue: nil)
 #endif
     }
@@ -62,7 +72,7 @@ class BluetoothManager: NSObject, ObservableObject {
             self.startSimulatingThreats()
         }
 #else
-        guard centralManager.state == .poweredOn else {
+        guard let centralManager, centralManager.state == .poweredOn else {
             print("Bluetooth not powered on.")
             stopScanning()
             return
@@ -77,7 +87,7 @@ class BluetoothManager: NSObject, ObservableObject {
         scanTimeoutTimer?.invalidate()
         scanTimeoutTimer = nil
 #if !targetEnvironment(simulator)
-        centralManager.stopScan()
+        centralManager?.stopScan()
 #endif
         print("Stopped scanning.")
     }
@@ -93,7 +103,7 @@ class BluetoothManager: NSObject, ObservableObject {
 #else
         intentionalDisconnect = true
         if let peripheral = connectedPeripheral {
-            centralManager.cancelPeripheralConnection(peripheral)
+            centralManager?.cancelPeripheralConnection(peripheral)
             connectedPeripheral = nil
             isConnected = false
         }
@@ -144,11 +154,16 @@ class BluetoothManager: NSObject, ObservableObject {
 #if !targetEnvironment(simulator)
 extension BluetoothManager: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        DispatchQueue.main.async {
+            self.bluetoothState = central.state
+        }
         switch central.state {
         case .poweredOn:
             print("Bluetooth powered on.")
         case .poweredOff:
             print("Bluetooth powered off.")
+        case .unauthorized:
+            print("Bluetooth unauthorized.")
         default:
             print("Bluetooth state: \(central.state.rawValue)")
         }
@@ -161,7 +176,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         print("Discovered: \(peripheral.name ?? "Unknown")")
         stopScanning()
         connectedPeripheral = peripheral
-        centralManager.connect(peripheral, options: nil)
+        centralManager?.connect(peripheral, options: nil)
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
