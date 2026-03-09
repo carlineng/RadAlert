@@ -31,6 +31,7 @@ class BluetoothManager: NSObject, ObservableObject {
     private var lastThreatIDs: Set<UInt8> = []
     private var scanTimeoutTimer: Timer?
     private let scanTimeoutInterval: TimeInterval = 15.0
+    private var isInitialized = false
 
 #if targetEnvironment(simulator)
     private var simulationTimer: Timer?
@@ -49,6 +50,8 @@ class BluetoothManager: NSObject, ObservableObject {
     }
 
     func initialize() {
+        guard !isInitialized else { return }
+        isInitialized = true
 #if targetEnvironment(simulator)
         bluetoothState = .poweredOn
 #else
@@ -265,7 +268,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         if isSaved {
             stopScanning()
             connectedPeripheral = peripheral
-            centralManager.connect(peripheral, options: nil)
+            centralManager?.connect(peripheral, options: nil)
         }
     }
 
