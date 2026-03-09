@@ -48,22 +48,40 @@
 
 Currently the app auto-connects to the first discovered Garmin Varia with no user control. This is a problem if multiple radars are in range (group rides, shared equipment), or if the user wants to pair a specific device.
 
-### Planned approach
-- On scan, collect all discovered Garmin Varia devices (name + signal strength) rather than immediately connecting to the first
-- After a short discovery window (e.g. 3s), show a device picker if more than one device is found; auto-connect if only one is found
-- Store the last-connected device identifier (`CBPeripheral.identifier`) in `@AppStorage` and attempt to reconnect to it first on subsequent rides (skip picker if it's in range)
-- "Forget device" option to clear the stored identifier and force re-selection
+Full spec in `memory/radar-selection-spec.md`.
+
+### Behaviour by case
+1. **One radar, no saved** — single-device confirm screen ("Found: Varia RTL515 · A4") + Connect
+2. **Multiple radars, no saved** — `RadarSelectionView` list; user must explicitly choose
+3. **Saved radar found** — auto-connect silently, no UI interruption
+4. **Saved radar not found** — fallback screen: Keep Searching / Choose Another Radar / Cancel (no "start without radar" — radar required)
+5. **Wrong radar found before saved** — do NOT auto-connect; wait or show fallback
+
+### Connection policy
+- Filter to compatible service UUID only
+- Saved radar always takes priority; never silently switch to a different device
+- Mid-ride disconnect: attempt reconnect to same saved radar only
+
+### Device row display
+- Primary: advertised BLE name (e.g. "Varia RTL515")
+- Secondary: last 4 chars of `CBPeripheral.identifier` + RSSI label (Nearby / Very close / Weak signal)
+- Badges: Saved (sorted to top), Connecting…
+
+### Persistence model (`SavedRadar`)
+Stored in UserDefaults:
+- `peripheralIdentifier: UUID` — `CBPeripheral.identifier`
+- `displayName: String?`
+- `identifierSuffix: String` — last 4 chars, for display
+- `lastConnectedAt: Date?`
 
 ### Files affected
-- `BluetoothManager.swift` — collect discovered peripherals into an array instead of immediately connecting; add stored preferred device UUID; add `@Published var discoveredDevices: [CBPeripheral]`
-- New `DevicePickerView.swift` — list of discovered devices with name + RSSI; shown from `WorkoutView` when multiple devices found
-- `WorkoutView.swift` — observe `bluetoothManager.discoveredDevices`; show picker sheet when count > 1 and not yet connected
-- Simulator path — simulate discovering 2 devices to exercise the picker
-
-### Open questions before implementing
-- Discovery window duration (3s? 5s? user-dismissible?)
-- How to display device names — Garmin Varia devices often advertise with generic names; may need to show partial UUID or signal strength as the differentiator
-- Whether to show the picker during auto-reconnect attempts or only on first connection
+- `BluetoothManager.swift` — collect `@Published var discoveredDevices: [DiscoveredRadar]`; rank saved first; connect only when user confirms or saved radar found
+- New `RadarSelectionView.swift` — scanning / empty / single-confirm / multi-list states; Connect + Rescan + Cancel
+- New `SettingsView.swift` — sheet from IdleView; shows saved radar name/ID/last connected; Change Radar + Forget Radar actions
+- New `SavedRadar.swift` — persistence model
+- `IdleView.swift` — settings button (shown when saved radar exists)
+- `WorkoutView.swift` — fallback sheet when saved radar not found after scan timeout
+- Simulator — simulate 2 discovered devices to exercise picker path
 
 ---
 
