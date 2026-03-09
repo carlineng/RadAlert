@@ -19,10 +19,17 @@ class WorkoutSessionManager: NSObject, ObservableObject {
     var onSessionExpired: (() -> Void)?
 
     var isHealthKitAuthorized: Bool {
-        healthStore.authorizationStatus(for: HKObjectType.workoutType()) == .sharingAuthorized
+#if targetEnvironment(simulator)
+        return true
+#else
+        return healthStore.authorizationStatus(for: HKObjectType.workoutType()) == .sharingAuthorized
+#endif
     }
 
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
+#if targetEnvironment(simulator)
+        completion(true)
+#else
         let typesToShare: Set = [HKObjectType.workoutType()]
         let typesToRead: Set<HKObjectType> = []
         healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { success, error in
@@ -31,9 +38,14 @@ class WorkoutSessionManager: NSObject, ObservableObject {
             }
             DispatchQueue.main.async { completion(success) }
         }
+#endif
     }
 
     func startWorkout() {
+#if targetEnvironment(simulator)
+        print("[Simulator] Workout session started.")
+        DispatchQueue.main.async { self.workoutStartDate = Date() }
+#else
         requestAuthorization { success in
             guard success else {
                 print("HealthKit authorization was not granted.")
@@ -41,6 +53,7 @@ class WorkoutSessionManager: NSObject, ObservableObject {
             }
             self.beginSession()
         }
+#endif
     }
 
     private func beginSession() {
@@ -73,6 +86,10 @@ class WorkoutSessionManager: NSObject, ObservableObject {
     }
 
     func endAndSave(completion: @escaping () -> Void) {
+#if targetEnvironment(simulator)
+        print("[Simulator] Workout saved.")
+        DispatchQueue.main.async { self.workoutStartDate = nil; completion() }
+#else
         guard let session = workoutSession else { completion(); return }
         intentionalEnd = true
         session.end()
@@ -91,9 +108,14 @@ class WorkoutSessionManager: NSObject, ObservableObject {
                 }
             }
         }
+#endif
     }
 
     func endAndDiscard(completion: @escaping () -> Void) {
+#if targetEnvironment(simulator)
+        print("[Simulator] Workout discarded.")
+        DispatchQueue.main.async { self.workoutStartDate = nil; completion() }
+#else
         guard let session = workoutSession else { completion(); return }
         intentionalEnd = true
         session.end()
@@ -108,6 +130,7 @@ class WorkoutSessionManager: NSObject, ObservableObject {
                 completion()
             }
         }
+#endif
     }
 }
 
