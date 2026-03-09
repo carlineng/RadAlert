@@ -12,7 +12,7 @@ RadAlert is a **standalone watchOS application** for Garmin Varia radar device i
 ## Build & Test Commands
 
 ### Building the Project
-- Open `VariAlert/RadAlert.xcodeproj` in Xcode
+- Open `RadAlert/RadAlert.xcodeproj` in Xcode
 - Single build target: `RadAlert Watch App` (watchOS)
 - Use standard Xcode build commands (⌘+B) or xcodebuild CLI
 
@@ -23,7 +23,7 @@ RadAlert is a **standalone watchOS application** for Garmin Varia radar device i
 - Apple Developer account for device testing (personal/free team works with limitations — see Notes)
 
 ### Setup Instructions
-1. Open `VariAlert/RadAlert.xcodeproj` in Xcode
+1. Open `RadAlert/RadAlert.xcodeproj` in Xcode
 2. Select the `RadAlert Watch App` target
 3. Go to "Signing & Capabilities" tab
 4. Set your Development Team (Apple ID/Developer Account)
