@@ -253,13 +253,11 @@ extension BluetoothManager: CBCentralManagerDelegate {
         )
         discoveredPeripherals[uuid] = peripheral
 
-        DispatchQueue.main.async {
-            // Saved radar sorts to top
-            if isSaved {
-                self.discoveredDevices.insert(device, at: 0)
-            } else {
-                self.discoveredDevices.append(device)
-            }
+        // Already on main queue (CBCentralManager initialized with queue: nil)
+        if isSaved {
+            discoveredDevices.insert(device, at: 0)
+        } else {
+            discoveredDevices.append(device)
         }
 
         print("Discovered: \(peripheral.name ?? "Unknown") (\(suffix))")
