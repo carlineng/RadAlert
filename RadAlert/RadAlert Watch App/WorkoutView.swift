@@ -46,7 +46,7 @@ struct WorkoutView: View {
                 .font(.subheadline)
                 .foregroundColor(radarStatusColor)
 
-            if !bluetoothManager.isConnected && !bluetoothManager.isScanning {
+            if !bluetoothManager.isConnected && !bluetoothManager.isScanning && !bluetoothManager.isConnecting {
                 if bluetoothManager.savedRadar != nil {
                     Button("Keep Searching") {
                         bluetoothManager.startScanning()
@@ -185,6 +185,7 @@ struct WorkoutView: View {
 
     private var radarStatusText: String {
         if bluetoothManager.isConnected { return "Radar Connected" }
+        if bluetoothManager.isConnecting { return "Connecting..." }
         if bluetoothManager.isScanning { return "Scanning..." }
         if showingDisconnectWarning { return "Radar Lost" }
         return "No Radar"

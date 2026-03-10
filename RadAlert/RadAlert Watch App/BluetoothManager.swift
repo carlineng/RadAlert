@@ -17,6 +17,7 @@ class BluetoothManager: NSObject, ObservableObject {
 
     // MARK: - Published Properties
     @Published var isScanning: Bool = false
+    @Published var isConnecting: Bool = false
     @Published var isConnected: Bool = false
     @Published var vehicleCount: Int = 0
     @Published var bluetoothState: CBManagerState = .unknown
@@ -122,13 +123,18 @@ class BluetoothManager: NSObject, ObservableObject {
     }
 
     func connect(to device: DiscoveredRadar) {
+        isConnecting = true
 #if targetEnvironment(simulator)
-        isConnected = true
-        print("[Simulator] Connected to \(device.name).")
-        startSimulatingThreats()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.isConnecting = false
+            self.isConnected = true
+            print("[Simulator] Connected to \(device.name).")
+            self.startSimulatingThreats()
+        }
 #else
         guard let peripheral = discoveredPeripherals[device.id] else {
             print("Peripheral not found for \(device.name).")
+            isConnecting = false
             return
         }
         stopScanning()
@@ -272,6 +278,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         DispatchQueue.main.async {
+            self.isConnecting = false
             self.isConnected = true
             // Update lastConnectedAt for the saved radar
             if var saved = self.savedRadar, saved.peripheralIdentifier == peripheral.identifier {
@@ -289,6 +296,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
                         didFailToConnect peripheral: CBPeripheral,
                         error: Error?) {
         print("Failed to connect: \(error?.localizedDescription ?? "unknown error")")
+        isConnecting = false
         connectedPeripheral = nil
     }
 
