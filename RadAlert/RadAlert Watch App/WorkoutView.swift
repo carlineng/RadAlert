@@ -111,7 +111,9 @@ struct WorkoutView: View {
                 .stroke(Color.orange, lineWidth: 6)
                 .opacity(showingDisconnectWarning ? 1 : 0)
         )
-        .sheet(isPresented: $showingConfirmation) {
+        .sheet(isPresented: $showingConfirmation, onDismiss: {
+            bluetoothManager.alertsEnabled = true
+        }) {
             EndRideSheet(
                 onResume: {
                     bluetoothManager.alertsEnabled = true
