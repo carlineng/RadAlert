@@ -419,11 +419,11 @@ struct Threat {
 /// Parses a complete radar data payload into an array of Threats.
 func parseRadarData(_ data: Data) -> [Threat]? {
     if data.count == 1 {
-        print("🔹 Single-byte packet — no threats.")
+        print("Single-byte packet - no threats.")
         return []
     }
     guard data.count >= 4, (data.count - 1) % 3 == 0 else {
-        print("⚠️ Invalid payload length: \(data.count) bytes")
+        print("Invalid payload length: \(data.count) bytes")
         return nil
     }
 
@@ -438,6 +438,6 @@ func parseRadarData(_ data: Data) -> [Threat]? {
         threats.append(Threat(id: data[base], distance: data[base + 1], speed: data[base + 2]))
     }
 
-    print("📡 Packet \(String(format: "%X", packetID)): \(threats.count) threat(s)")
+    print("Packet \(String(format: "%X", packetID)): \(threats.count) threat(s)")
     return threats
 }
