@@ -28,8 +28,6 @@
 		AA11223344556677889900AA /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB11223344556677889900BB /* BluetoothManager.swift */; };
 		AA22334455667788990011AA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22334455667788990011BB /* SettingsView.swift */; };
 		CC22334455667788990011CC /* SavedRadar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD22334455667788990011DD /* SavedRadar.swift */; };
-		CE000004000000000000004F /* StubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE000001000000000000001F /* StubApp.swift */; };
-		CE000005000000000000005F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE000002000000000000002F /* ContentView.swift */; };
 		EE11223344556677889900EE /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF11223344556677889900FF /* OnboardingView.swift */; };
 		EE22334455667788990011EE /* RadarSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF22334455667788990011FF /* RadarSelectionView.swift */; };
 /* End PBXBuildFile section */
@@ -68,9 +66,6 @@
 		A200000000000000000000AF /* RadAlert Watch App Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RadAlert Watch App Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB11223344556677889900BB /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		BB22334455667788990011BB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		CE000001000000000000001F /* StubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubApp.swift; sourceTree = "<group>"; };
-		CE000002000000000000002F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		CE000003000000000000003F /* VariAlertStub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VariAlertStub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD22334455667788990011DD /* SavedRadar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRadar.swift; sourceTree = "<group>"; };
 		FF11223344556677889900FF /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		FF22334455667788990011FF /* RadarSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarSelectionView.swift; sourceTree = "<group>"; };
@@ -91,13 +86,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE000008000000000000008F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -106,7 +94,6 @@
 			children = (
 				36FE29EC2D502BA400A5E88E /* RadAlert Watch App */,
 				A20000000000000000000011 /* RadAlertTests */,
-				CE00000D0000000000000DDF /* VariAlertStub */,
 				36FE29D72D502B1800A5E88E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				36FE29EB2D502BA400A5E88E /* RadAlert Watch App.app */,
-				CE000003000000000000003F /* VariAlertStub.app */,
 				A200000000000000000000AF /* RadAlert Watch App Tests.xctest */,
 			);
 			name = Products;
@@ -167,15 +153,6 @@
 			path = RadAlertTests;
 			sourceTree = "<group>";
 		};
-		CE00000D0000000000000DDF /* VariAlertStub */ = {
-			isa = PBXGroup;
-			children = (
-				CE000001000000000000001F /* StubApp.swift */,
-				CE000002000000000000002F /* ContentView.swift */,
-			);
-			path = VariAlertStub;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -213,23 +190,6 @@
 			productReference = A200000000000000000000AF /* RadAlert Watch App Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CE000009000000000000009F /* VariAlertStub */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CE00000C0000000000000CCF /* Build configuration list for PBXNativeTarget "VariAlertStub" */;
-			buildPhases = (
-				CE000006000000000000006F /* Sources */,
-				CE000008000000000000008F /* Frameworks */,
-				CE000007000000000000007F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = VariAlertStub;
-			productName = VariAlertStub;
-			productReference = CE000003000000000000003F /* VariAlertStub.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -247,9 +207,6 @@
 						CreatedOnToolsVersion = 15.4;
 						TestTargetID = 36FE29EA2D502BA400A5E88E;
 					};
-					CE000009000000000000009F = {
-						CreatedOnToolsVersion = 15.4;
-					};
 				};
 			};
 			buildConfigurationList = 36FE29D12D502B1800A5E88E /* Build configuration list for PBXProject "RadAlert" */;
@@ -266,7 +223,6 @@
 			projectRoot = "";
 			targets = (
 				36FE29EA2D502BA400A5E88E /* RadAlert Watch App */,
-				CE000009000000000000009F /* VariAlertStub */,
 				A20000000000000000000044 /* RadAlert Watch App Tests */,
 			);
 		};
@@ -279,13 +235,6 @@
 			files = (
 				36FE29F52D502BA600A5E88E /* Preview Assets.xcassets in Resources */,
 				36FE29F22D502BA600A5E88E /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CE000007000000000000007F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,15 +273,6 @@
 				A200000000000000000000B5 /* RadarSelectionLogicTests.swift in Sources */,
 				A200000000000000000000B6 /* WorkoutViewLogicTests.swift in Sources */,
 				A200000000000000000000B7 /* Mocks.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CE000006000000000000006F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CE000004000000000000004F /* StubApp.swift in Sources */,
-				CE000005000000000000005F /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,56 +518,6 @@
 			};
 			name = Release;
 		};
-		CE00000A0000000000000AAF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 82Z3449U28;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = RadAlert;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.RadAlert;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		CE00000B0000000000000BBF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 82Z3449U28;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = RadAlert;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carlineng.RadAlert;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -654,15 +544,6 @@
 			buildConfigurations = (
 				A20000000000000000000055 /* Debug */,
 				A20000000000000000000066 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CE00000C0000000000000CCF /* Build configuration list for PBXNativeTarget "VariAlertStub" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CE00000A0000000000000AAF /* Debug */,
-				CE00000B0000000000000BBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
