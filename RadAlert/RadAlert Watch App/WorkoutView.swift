@@ -200,6 +200,9 @@ struct WorkoutView: View {
             bluetoothManager.alertsEnabled = true
             elapsedTimer?.invalidate()
             elapsedTimer = nil
+            holdTimer?.invalidate()
+            holdTimer = nil
+            holdProgress = 0
             bluetoothManager.onNewThreatDetected = nil
             bluetoothManager.onRadarDisconnected = nil
             workoutManager.onSessionExpired = nil
