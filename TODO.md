@@ -66,8 +66,8 @@
 ### Hard Blockers
 
 - [ ] **Update to watchOS 26 SDK / latest Xcode** — Apple requires watchOS 26 SDK for all uploads after April 28, 2026 (~7 weeks away); submission will be blocked at upload regardless of review; rebuild and re-test BLE + HealthKit flows on shipping OS after update
-- [ ] **Paid Apple Developer Program membership** ($99/yr) — required to submit to App Store; personal/free team cannot submit
-- [ ] **Remove VariAlertStub iOS target** — must be removed before App Store submission (Apple guideline 4.2); also remove `WKCompanionAppBundleIdentifier` from watch target build settings; requires paid account so App Store distribution manages watch app persistence; see `VariAlertStub/StubApp.swift` for instructions
+- [x] **Paid Apple Developer Program membership** ($99/yr) — required to submit to App Store; personal/free team cannot submit
+- [x] **Remove VariAlertStub iOS target** — removed; `WKCompanionAppBundleIdentifier` also removed from watch target build settings
 
 ### Code Fixes (actionable now)
 
@@ -104,9 +104,6 @@
 - Haptic alerts only fire during active workout mode; suppressed during end-of-ride confirmation sheet
 - Auto-connect to first discovered Garmin Varia (no manual device selection)
 - Haptic pattern: 4× `.retry` pulses, 0.3s spacing
-- `VariAlertStub` iOS target exists only to satisfy the companion app check during development; see `VariAlertStub/StubApp.swift` for removal instructions
-- `WKCompanionAppBundleIdentifier = com.carlineng.RadAlert` is required by WatchKit installer (bundle ID prefix constraint); remove when removing the stub
-
 ### App Store Description Disclaimer
 > SAFETY NOTICE: RadAlert is a supplemental awareness tool and is not a certified safety device. It cannot guarantee detection of all vehicles. Always follow traffic laws, remain alert, and rely on your own judgement while riding. The developer assumes no liability for accidents or injuries. Use at your own risk.
 
