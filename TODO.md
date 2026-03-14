@@ -65,7 +65,7 @@
 
 ### Hard Blockers
 
-- [ ] **Update to watchOS 26 SDK / latest Xcode** — Apple requires watchOS 26 SDK for all uploads after April 28, 2026 (~7 weeks away); submission will be blocked at upload regardless of review; rebuild and re-test BLE + HealthKit flows on shipping OS after update
+- [x] **Update to watchOS 26 SDK / latest Xcode** — already on Xcode 26.3 with watchOS 26.2 SDK; satisfies Apple's April 28, 2026 requirement
 - [x] **Paid Apple Developer Program membership** ($99/yr) — required to submit to App Store; personal/free team cannot submit
 - [x] **Remove VariAlertStub iOS target** — removed; `WKCompanionAppBundleIdentifier` key retained in build settings (required by watchOS simulator installer even without a companion app)
 
