@@ -39,6 +39,7 @@ class BluetoothManager: NSObject, ObservableObject {
 
     // MARK: - Private Properties
     private let scanTimeoutInterval: TimeInterval
+    private let unexpectedDisconnectRetryDelay: TimeInterval
     private let threatHapticCooldown: TimeInterval = 1.0
     private var scanTimeoutTimer: Timer?
     private var isInitialized = false
@@ -56,10 +57,12 @@ class BluetoothManager: NSObject, ObservableObject {
 
     init(hapticProvider: HapticProviding = DeviceHapticProvider(),
          radarStore: RadarStoreProviding = UserDefaultsRadarStore(),
-         scanTimeoutInterval: TimeInterval = 15.0) {
+         scanTimeoutInterval: TimeInterval = 15.0,
+         unexpectedDisconnectRetryDelay: TimeInterval = 2.0) {
         self.hapticProvider = hapticProvider
         self.radarStore = radarStore
         self.scanTimeoutInterval = scanTimeoutInterval
+        self.unexpectedDisconnectRetryDelay = unexpectedDisconnectRetryDelay
         super.init()
         savedRadar = radarStore.load()
     }
@@ -254,8 +257,27 @@ class BluetoothManager: NSObject, ObservableObject {
     func handleUnexpectedDisconnect() {
         playDisconnectHaptic()
         onRadarDisconnected?()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + unexpectedDisconnectRetryDelay) { [weak self] in
             self?.startScanning()
+        }
+    }
+
+    /// Processes a discovered peripheral; extracts the auto-connect logic for testability.
+    func handleDiscoveredPeripheral(uuid: UUID, name: String?, rssi: Int) {
+        guard !discoveredDevices.contains(where: { $0.id == uuid }) else { return }
+        let suffix = String(uuid.uuidString.suffix(4))
+        let isSaved = savedRadar?.peripheralIdentifier == uuid
+        let device = DiscoveredRadar(id: uuid, name: name ?? "Varia Radar", rssi: rssi,
+                                     identifierSuffix: suffix, isSaved: isSaved)
+        if isSaved {
+            discoveredDevices.insert(device, at: 0)
+        } else {
+            discoveredDevices.append(device)
+        }
+        print("Discovered: \(name ?? "Unknown") (\(suffix))")
+        if isSaved {
+            stopScanning()
+            isConnecting = true
         }
     }
 
@@ -302,30 +324,9 @@ extension BluetoothManager: CBCentralManagerDelegate {
                         rssi RSSI: NSNumber) {
 #if !targetEnvironment(simulator)
         let uuid = peripheral.identifier
-        guard !discoveredDevices.contains(where: { $0.id == uuid }) else { return }
-
-        let suffix = String(uuid.uuidString.suffix(4))
-        let isSaved = savedRadar?.peripheralIdentifier == uuid
-        let device = DiscoveredRadar(
-            id: uuid,
-            name: peripheral.name ?? "Varia Radar",
-            rssi: RSSI.intValue,
-            identifierSuffix: suffix,
-            isSaved: isSaved
-        )
         discoveredPeripherals[uuid] = peripheral
-
-        if isSaved {
-            discoveredDevices.insert(device, at: 0)
-        } else {
-            discoveredDevices.append(device)
-        }
-
-        print("Discovered: \(peripheral.name ?? "Unknown") (\(suffix))")
-
-        if isSaved {
-            stopScanning()
-            isConnecting = true
+        handleDiscoveredPeripheral(uuid: uuid, name: peripheral.name, rssi: RSSI.intValue)
+        if savedRadar?.peripheralIdentifier == uuid {
             connectedPeripheral = peripheral
             centralManager?.connect(peripheral, options: nil)
         }

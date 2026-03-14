@@ -116,16 +116,38 @@ final class WorkoutSessionManagerTests: XCTestCase {
         XCTAssertFalse(expired)
     }
 
-    // MARK: - requestAuthorization (non-simulator would test the injected store;
-    //         in simulator the method always returns true regardless of the store mock)
+    // MARK: - requestAuthorization (routes through injected store — no simulator guard)
 
-    func testRequestAuthorizationSimulatorAlwaysReturnsTrue() {
-        let (manager, _) = makeManager(authResult: false)
-        let exp = expectation(description: "auth")
+    func testRequestAuthorizationGrantedReturnsTrue() {
+        let (manager, _) = makeManager(authResult: true)
+        let exp = expectation(description: "auth granted")
 
         manager.requestAuthorization { success in
-            // In simulator path, always true
             XCTAssertTrue(success)
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 1)
+    }
+
+    func testRequestAuthorizationDeniedReturnsFalse() {
+        let (manager, _) = makeManager(authResult: false)
+        let exp = expectation(description: "auth denied")
+
+        manager.requestAuthorization { success in
+            XCTAssertFalse(success)
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 1)
+    }
+
+    func testRequestAuthorizationPropagatesError() {
+        let (manager, store) = makeManager(authResult: false)
+        struct FakeError: Error {}
+        store.requestAuthorizationError = FakeError()
+        let exp = expectation(description: "auth error")
+
+        manager.requestAuthorization { success in
+            XCTAssertFalse(success)
             exp.fulfill()
         }
         waitForExpectations(timeout: 1)

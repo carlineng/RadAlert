@@ -52,8 +52,4 @@ class MockHealthStore: HealthStoreProviding {
                                completion: @escaping (Bool, Error?) -> Void) {
         completion(requestAuthorizationResult, requestAuthorizationError)
     }
-
-    func makeWorkoutSession(configuration: HKWorkoutConfiguration) throws -> HKWorkoutSession {
-        fatalError("MockHealthStore.makeWorkoutSession should not be called in simulator tests")
-    }
 }

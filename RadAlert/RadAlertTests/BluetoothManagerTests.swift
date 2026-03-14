@@ -185,6 +185,80 @@ final class BluetoothManagerTests: XCTestCase {
         XCTAssertFalse(callbackFired)
     }
 
+    // MARK: - handleDiscoveredPeripheral
+
+    func testHandleDiscoveredPeripheralAddsToDiscoveredDevices() {
+        let (manager, _) = makeManager()
+        manager.handleDiscoveredPeripheral(uuid: UUID(), name: "Varia RTL515", rssi: -55)
+        XCTAssertEqual(manager.discoveredDevices.count, 1)
+        XCTAssertEqual(manager.discoveredDevices[0].name, "Varia RTL515")
+    }
+
+    func testHandleDiscoveredPeripheralDeduplicates() {
+        let (manager, _) = makeManager()
+        let id = UUID()
+        manager.handleDiscoveredPeripheral(uuid: id, name: "Varia", rssi: -55)
+        manager.handleDiscoveredPeripheral(uuid: id, name: "Varia", rssi: -55)
+        XCTAssertEqual(manager.discoveredDevices.count, 1)
+    }
+
+    func testHandleDiscoveredSavedRadarSetsConnectingAndStopsScanning() {
+        let savedID = UUID()
+        let saved = SavedRadar(peripheralIdentifier: savedID, displayName: "Varia",
+                               identifierSuffix: "ABCD", lastConnectedAt: nil)
+        let (manager, _) = makeManager(savedRadar: saved)
+        manager.savedRadar = saved
+        manager.isScanning = true
+
+        manager.handleDiscoveredPeripheral(uuid: savedID, name: "Varia", rssi: -60)
+
+        XCTAssertTrue(manager.isConnecting)
+        XCTAssertFalse(manager.isScanning)
+    }
+
+    func testHandleDiscoveredSavedRadarInsertsAtFront() {
+        let savedID = UUID()
+        let saved = SavedRadar(peripheralIdentifier: savedID, displayName: "Varia",
+                               identifierSuffix: "ABCD", lastConnectedAt: nil)
+        let (manager, _) = makeManager(savedRadar: saved)
+        manager.savedRadar = saved
+        manager.handleDiscoveredPeripheral(uuid: UUID(), name: "Other Radar", rssi: -70)
+        manager.handleDiscoveredPeripheral(uuid: savedID, name: "Varia", rssi: -55)
+
+        XCTAssertEqual(manager.discoveredDevices[0].id, savedID)
+    }
+
+    func testHandleDiscoveredNonSavedRadarDoesNotAutoConnect() {
+        let savedID = UUID()
+        let saved = SavedRadar(peripheralIdentifier: savedID, displayName: "Varia",
+                               identifierSuffix: "ABCD", lastConnectedAt: nil)
+        let (manager, _) = makeManager(savedRadar: saved)
+        manager.savedRadar = saved
+
+        manager.handleDiscoveredPeripheral(uuid: UUID(), name: "Other Radar", rssi: -70)
+
+        XCTAssertFalse(manager.isConnecting)
+    }
+
+    // MARK: - handleUnexpectedDisconnect retry-to-scanning
+
+    func testUnexpectedDisconnectTriggersRescanning() {
+        let haptic = MockHapticProvider()
+        let store = MockRadarStore()
+        let manager = BluetoothManager(hapticProvider: haptic, radarStore: store,
+                                       scanTimeoutInterval: 10.0,
+                                       unexpectedDisconnectRetryDelay: 0.1)
+        let exp = expectation(description: "rescanning after disconnect")
+
+        manager.handleUnexpectedDisconnect()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            XCTAssertTrue(manager.isScanning)
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 1)
+    }
+
     // MARK: - saveRadar / forgetSavedRadar
 
     func testSaveRadarPersists() {
