@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 RadAlert is a **standalone watchOS application** for Garmin Varia radar device integration. The app runs entirely on Apple Watch — no companion iPhone app is required at runtime.
 
 - **watchOS App**: Connects directly to a Garmin Varia radar via Bluetooth, monitors for vehicle threats, and delivers haptic alerts during cycling workouts
-- There is no iOS app target in this project (a development-only stub `VariAlertStub` exists to prevent orphan-cleanup — see `VariAlertStub/StubApp.swift`)
+- There is no iOS app target in this project — the app is fully standalone
 
 ## Build & Test Commands
 
@@ -20,7 +20,7 @@ RadAlert is a **standalone watchOS application** for Garmin Varia radar device i
 - Xcode 15.4 or later
 - watchOS 10.5+ deployment target
 - Swift 5.0
-- Apple Developer account for device testing (personal/free team works with limitations — see Notes)
+- Paid Apple Developer Program membership ($99/yr) — required for App Store distribution and to avoid 7-day build expiry on device
 
 ### Setup Instructions
 1. Open `RadAlert/RadAlert.xcodeproj` in Xcode
@@ -74,11 +74,10 @@ The app follows MVVM architecture with SwiftUI and Combine.
 
 **Standalone Watch Configuration**
 - `WKRunsIndependentlyOfCompanionApp = YES` — watch app does not require companion iOS app
-- `WKCompanionAppBundleIdentifier = com.carlineng.RadAlert` — required by WatchKit installer (bundle ID prefix constraint); matches the dev-only stub's bundle ID
+- `WKCompanionAppBundleIdentifier = com.carlineng.RadAlert` — required by the watchOS simulator installer (key must be present even with no companion app); no iOS app with this bundle ID needs to exist
 
 ## Development Notes
 
-- **Personal/free Apple Developer accounts**: development builds expire after 7 days and are removed from the device; a paid ($99/yr) Apple Developer Program membership removes this limitation
 - **Installing to device**: connect iPhone via USB, select the watch as run destination in Xcode — trust is handled automatically by Xcode, no manual trust step needed
 - Bluetooth permission: `NSBluetoothAlwaysUsageDescription` in watchOS build settings
 - HealthKit permissions: `NSHealthShareUsageDescription` and `NSHealthUpdateUsageDescription` in watchOS build settings
