@@ -27,7 +27,7 @@ class WorkoutSessionManager: NSObject, ObservableObject {
 #endif
     }
 
-    init(store: HealthStoreProviding = HKHealthStore()) {
+    init(store: HealthStoreProviding = RealHealthStore()) {
         self.store = store
         super.init()
     }
@@ -71,8 +71,14 @@ class WorkoutSessionManager: NSObject, ObservableObject {
         configuration.activityType = .cycling
         configuration.locationType = .outdoor
 
+        guard let realStore = store as? RealHealthStore else {
+            print("beginSession requires RealHealthStore.")
+            DispatchQueue.main.async { completion(false) }
+            return
+        }
+
         do {
-            workoutSession = try store.makeWorkoutSession(configuration: configuration)
+            workoutSession = try HKWorkoutSession(healthStore: realStore.healthStore, configuration: configuration)
             workoutBuilder = workoutSession?.associatedWorkoutBuilder()
 
             workoutSession?.delegate = self

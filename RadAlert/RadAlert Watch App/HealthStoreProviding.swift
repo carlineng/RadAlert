@@ -11,11 +11,22 @@ protocol HealthStoreProviding {
     func requestAuthorization(toShare typesToShare: Set<HKSampleType>,
                               read typesToRead: Set<HKObjectType>,
                               completion: @escaping (Bool, Error?) -> Void)
-    func makeWorkoutSession(configuration: HKWorkoutConfiguration) throws -> HKWorkoutSession
 }
 
-extension HKHealthStore: HealthStoreProviding {
-    func makeWorkoutSession(configuration: HKWorkoutConfiguration) throws -> HKWorkoutSession {
-        return try HKWorkoutSession(healthStore: self, configuration: configuration)
+/// Production implementation — thin wrapper around HKHealthStore.
+/// Exposing `healthStore` lets WorkoutSessionManager create HKWorkoutSessions.
+struct RealHealthStore: HealthStoreProviding {
+    let healthStore: HKHealthStore
+
+    init() { self.healthStore = HKHealthStore() }
+
+    func authorizationStatus(for type: HKObjectType) -> HKAuthorizationStatus {
+        healthStore.authorizationStatus(for: type)
+    }
+
+    func requestAuthorization(toShare typesToShare: Set<HKSampleType>,
+                              read typesToRead: Set<HKObjectType>,
+                              completion: @escaping (Bool, Error?) -> Void) {
+        healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead, completion: completion)
     }
 }
