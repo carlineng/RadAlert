@@ -74,6 +74,7 @@ The app follows MVVM architecture with SwiftUI and Combine.
 
 **Standalone Watch Configuration**
 - `WKRunsIndependentlyOfCompanionApp = YES` — watch app does not require companion iOS app
+- `WKCompanionAppBundleIdentifier = com.carlineng.RadAlert` — required by the watchOS simulator installer (key must be present even with no companion app); no iOS app with this bundle ID needs to exist
 
 ## Development Notes
 
