@@ -25,7 +25,7 @@ struct WorkoutView: View {
             // Metrics row
             HStack(spacing: 16) {
                 VStack(spacing: 2) {
-                    Text(elapsedFormatted)
+                    Text(formatElapsed(elapsedSeconds))
                         .font(.title2.monospacedDigit())
                     Text("Elapsed")
                         .font(.caption2)
@@ -45,15 +45,15 @@ struct WorkoutView: View {
 
             HStack(spacing: 5) {
                 Circle()
-                    .fill(pillDotColor)
+                    .fill(pillState.dotColor)
                     .frame(width: 7, height: 7)
-                Text(radarStatusText)
+                Text(pillState.text)
                     .font(.caption)
                     .fontWeight(.medium)
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 4)
-            .background(pillDotColor.opacity(0.15))
+            .background(pillState.dotColor.opacity(0.15))
             .cornerRadius(20)
 
             if bluetoothManager.scanTimedOut && !bluetoothManager.isConnected && !bluetoothManager.isConnecting {
@@ -213,33 +213,13 @@ struct WorkoutView: View {
 
     // MARK: - Radar Status
 
-    private var radarStatusText: String {
-        if bluetoothManager.isConnected { return "Connected" }
-        if bluetoothManager.isConnecting { return "Connecting" }
-        if bluetoothManager.isScanning { return "Searching" }
-        if showingDisconnectWarning { return "Lost" }
-        return "No Radar"
-    }
-
-    private var pillDotColor: Color {
-        if bluetoothManager.isConnected { return .green }
-        if bluetoothManager.isConnecting { return .yellow }
-        if bluetoothManager.isScanning { return .yellow }
-        if showingDisconnectWarning { return .red }
-        return .gray
-    }
-
-    // MARK: - Elapsed Time
-
-    private var elapsedFormatted: String {
-        let h = elapsedSeconds / 3600
-        let m = (elapsedSeconds % 3600) / 60
-        let s = elapsedSeconds % 60
-        if h > 0 {
-            return String(format: "%d:%02d:%02d", h, m, s)
-        } else {
-            return String(format: "%02d:%02d", m, s)
-        }
+    private var pillState: RadarPillState {
+        RadarPillState(
+            isConnected: bluetoothManager.isConnected,
+            isConnecting: bluetoothManager.isConnecting,
+            isScanning: bluetoothManager.isScanning,
+            isDisconnectWarning: showingDisconnectWarning
+        )
     }
 
     private func startElapsedTimer() {
@@ -287,5 +267,38 @@ private struct EndRideSheet: View {
             }
         }
         .padding()
+    }
+}
+
+// MARK: - Testable helpers
+
+/// Formats elapsed seconds as M:SS or H:MM:SS.
+func formatElapsed(_ seconds: Int) -> String {
+    let h = seconds / 3600
+    let m = (seconds % 3600) / 60
+    let s = seconds % 60
+    return h > 0 ? String(format: "%d:%02d:%02d", h, m, s) : String(format: "%02d:%02d", m, s)
+}
+
+/// Encapsulates radar connection state for the status pill.
+struct RadarPillState {
+    let isConnected: Bool
+    let isConnecting: Bool
+    let isScanning: Bool
+    let isDisconnectWarning: Bool
+
+    var text: String {
+        if isConnected { return "Connected" }
+        if isConnecting { return "Connecting" }
+        if isScanning { return "Searching" }
+        if isDisconnectWarning { return "Lost" }
+        return "No Radar"
+    }
+
+    var dotColor: Color {
+        if isConnected { return .green }
+        if isConnecting || isScanning { return .yellow }
+        if isDisconnectWarning { return .red }
+        return .gray
     }
 }
