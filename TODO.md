@@ -77,16 +77,18 @@
 
 ### Polish
 - [x] **App icon** — 1024px watchOS icon in Assets.xcassets
-- [ ] **Version and build number** — set to `1.0` / `1` in Xcode target General tab before submission
-- [ ] **Screenshot(s)** — App Store requires at least one Apple Watch screenshot
+- [x] **Version and build number** — set to `1.0` / `1`
+- [x] **Screenshot(s)** — added Apple Watch screenshots
 
 ### App Store Connect Setup
-- [ ] Create app record in App Store Connect
-- [ ] Complete App Privacy form — must accurately reflect data practices (workout data written to Health on save; Bluetooth used for radar only; no analytics/ads/external transmission)
-- [ ] Configure HealthKit data types in App Store Connect (required when using HealthKit entitlement)
-- [ ] Write App Store description, keywords, and support URL — keep Garmin Varia references descriptive not promotional; say "Works with supported Garmin Varia radar devices" and list tested models (RTL 515, RTL 516)
-- [ ] Link privacy policy URL (https://carlineng.github.io/RadAlert/privacy.html)
-- [ ] **Write App Review notes** — explain hardware dependency; list exact test path for reviewer without hardware (simulator mode with fake threats); note app is an accessory-style interface for supported radar hardware and is not represented as a safety certification
+- [x] Create app record in App Store Connect
+- [x] Complete App Privacy form — answered "No data collected"; accurate for RadAlert (no data leaves device)
+- [x] ~~Configure HealthKit data types~~ — not required separately; covered by "no data collected" answer
+- [x] Write App Store description, keywords, support URL, privacy policy URL, copyright, age rating
+- [x] App Review notes — simulator walkthrough written for reviewers without hardware
+- [ ] **Upload build via Transporter** — Xcode 26 bug prevents App Store Connect upload from Organizer for standalone watchOS apps; IPA exported to `/tmp/RadAlertExport/RadAlert Watch App.ipa`; install Transporter from Mac App Store, sign in, drag IPA in, click Deliver
+- [ ] **Attach build in App Store Connect** — after Transporter upload, wait ~10 min for processing, then select build under your 1.0 version
+- [ ] **Submit for Review** — click "Add for Review" → "Submit to App Review"
 
 ### GitHub Pages
 - [x] **Enable GitHub Pages** — live at https://carlineng.github.io/RadAlert/privacy.html
